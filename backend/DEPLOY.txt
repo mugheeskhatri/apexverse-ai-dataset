@@ -1,0 +1,264 @@
+# Apexverse — Production Deployment Guide
+# ==========================================
+# Follow these steps IN ORDER. Each step must complete before the next.
+
+# ══════════════════════════════════════════════════════════
+# STEP 1 — SERVER SETUP
+# ══════════════════════════════════════════════════════════
+
+# Get a VPS with at least 2 CPU, 4GB RAM (DigitalOcean, Hetzner, AWS EC2)
+# Ubuntu 22.04 LTS recommended
+
+# SSH into your server
+ssh root@YOUR_SERVER_IP
+
+# Install Docker
+curl -fsSL https://get.docker.com | sh
+systemctl enable docker
+systemctl start docker
+
+# Install Docker Compose
+curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+
+# Verify
+docker --version
+docker-compose --version
+
+
+# ══════════════════════════════════════════════════════════
+# STEP 2 — UPLOAD YOUR CODE
+# ══════════════════════════════════════════════════════════
+
+# On your LOCAL machine, upload the project:
+scp -r apexverse-backend/ root@YOUR_SERVER_IP:/opt/apexverse
+
+# Or use git:
+# git clone https://github.com/your-org/apexverse /opt/apexverse
+
+# Back on the server:
+cd /opt/apexverse
+
+# The folder structure should look like this:
+# /opt/apexverse/
+# ├── backend/          ← all the FastAPI code
+# ├── frontend/         ← your Next.js frontend code
+# ├── nginx/
+# │   ├── nginx.conf
+# │   └── certs/        ← SSL certs go here
+# ├── docker-compose.yml
+# ├── .env.example
+# └── DEPLOY.sh
+
+
+# ══════════════════════════════════════════════════════════
+# STEP 3 — ENVIRONMENT VARIABLES
+# ══════════════════════════════════════════════════════════
+
+cp .env.example .env
+nano .env
+
+# Fill in EVERY value. Key ones:
+#
+# POSTGRES_PASSWORD      → make up a strong password
+# REDIS_PASSWORD         → make up a strong password
+# JWT_SECRET             → run: openssl rand -hex 64
+# JWT_REFRESH_SECRET     → run: openssl rand -hex 64  (different from above)
+# ENCRYPTION_KEY         → run: openssl rand -hex 32
+# GOOGLE_CLIENT_ID       → from Google Cloud Console
+# GOOGLE_CLIENT_SECRET   → from Google Cloud Console
+# STRIPE_SECRET_KEY      → from Stripe Dashboard
+# STRIPE_WEBHOOK_SECRET  → from Stripe Dashboard (after step 6)
+# STRIPE_PRICE_*         → create products in Stripe first (step 5)
+# SENDGRID_API_KEY       → from SendGrid
+# FRONTEND_URL           → https://apexverse.ai
+# BACKEND_URL            → https://api.apexverse.ai
+# NEXT_PUBLIC_API_URL    → https://api.apexverse.ai
+
+
+# ══════════════════════════════════════════════════════════
+# STEP 4 — SSL CERTIFICATES
+# ══════════════════════════════════════════════════════════
+
+# Install certbot
+apt-get install -y certbot
+
+# Point your domain DNS to the server IP first, then:
+certbot certonly --standalone -d apexverse.ai -d www.apexverse.ai -d api.apexverse.ai
+
+# Copy certs to nginx folder
+mkdir -p /opt/apexverse/nginx/certs
+cp /etc/letsencrypt/live/apexverse.ai/fullchain.pem /opt/apexverse/nginx/certs/
+cp /etc/letsencrypt/live/apexverse.ai/privkey.pem /opt/apexverse/nginx/certs/
+chmod 644 /opt/apexverse/nginx/certs/*.pem
+
+# Auto-renew certs (add to crontab)
+echo "0 3 * * * certbot renew --quiet && cp /etc/letsencrypt/live/apexverse.ai/fullchain.pem /opt/apexverse/nginx/certs/ && cp /etc/letsencrypt/live/apexverse.ai/privkey.pem /opt/apexverse/nginx/certs/ && docker restart apexverse_nginx" | crontab -
+
+
+# ══════════════════════════════════════════════════════════
+# STEP 5 — STRIPE SETUP
+# ══════════════════════════════════════════════════════════
+
+# In Stripe Dashboard (dashboard.stripe.com):
+#
+# 1. Go to Products → Add product
+#    Create 6 products/prices:
+#    - Starter Monthly:       $19/month  → copy price ID → STRIPE_PRICE_STARTER_MONTHLY
+#    - Starter Annual:        $205/year  → copy price ID → STRIPE_PRICE_STARTER_ANNUAL
+#    - Growth Monthly:        $59/month  → copy price ID → STRIPE_PRICE_GROWTH_MONTHLY
+#    - Growth Annual:         $640/year  → copy price ID → STRIPE_PRICE_GROWTH_ANNUAL
+#    - Professional Monthly:  $149/month → copy price ID → STRIPE_PRICE_PROFESSIONAL_MONTHLY
+#    - Professional Annual:   $1,612/year→ copy price ID → STRIPE_PRICE_PROFESSIONAL_ANNUAL
+#
+# 2. Add all price IDs to your .env file
+
+
+# ══════════════════════════════════════════════════════════
+# STEP 6 — GOOGLE OAUTH SETUP
+# ══════════════════════════════════════════════════════════
+
+# In Google Cloud Console (console.cloud.google.com):
+#
+# 1. Create new project or use existing
+# 2. Enable "Google+ API" and "Google Identity"
+# 3. Go to Credentials → Create OAuth 2.0 Client ID
+# 4. Application type: Web application
+# 5. Add Authorized redirect URI:
+#    https://api.apexverse.ai/auth/google/callback
+# 6. Copy Client ID and Client Secret → add to .env
+
+
+# ══════════════════════════════════════════════════════════
+# STEP 7 — FRONTEND: ADD output: "standalone" 
+# ══════════════════════════════════════════════════════════
+
+# In your frontend/next.config.ts, add output: "standalone":
+#
+# const nextConfig: NextConfig = {
+#   output: "standalone",    ← ADD THIS LINE
+#   turbopack: { ... },
+# };
+#
+# This is REQUIRED for the Docker build to work.
+
+
+# ══════════════════════════════════════════════════════════
+# STEP 8 — BUILD AND LAUNCH
+# ══════════════════════════════════════════════════════════
+
+cd /opt/apexverse
+
+# Build all images (takes 3-5 minutes first time)
+docker-compose build
+
+# Start everything
+docker-compose up -d
+
+# Watch the logs to confirm everything started
+docker-compose logs -f
+
+
+# ══════════════════════════════════════════════════════════
+# STEP 9 — VERIFY IT'S RUNNING
+# ══════════════════════════════════════════════════════════
+
+# Check all containers are up
+docker-compose ps
+
+# Should show:
+# apexverse_postgres   running
+# apexverse_redis      running
+# apexverse_backend    running
+# apexverse_frontend   running
+# apexverse_nginx      running
+
+# Test the backend health endpoint
+curl http://localhost:8050/health
+# Expected: {"status":"ok","service":"apexverse-api"}
+
+# Test via domain
+curl https://api.apexverse.ai/health
+# Expected: {"status":"ok","service":"apexverse-api"}
+
+# Test frontend
+curl -I https://apexverse.ai
+# Expected: HTTP/2 200
+
+
+# ══════════════════════════════════════════════════════════
+# STEP 10 — STRIPE WEBHOOK
+# ══════════════════════════════════════════════════════════
+
+# In Stripe Dashboard → Developers → Webhooks:
+# 1. Click "Add endpoint"
+# 2. URL: https://api.apexverse.ai/billing/webhook
+# 3. Select these events:
+#    ✓ checkout.session.completed
+#    ✓ invoice.paid
+#    ✓ invoice.payment_failed
+#    ✓ customer.subscription.updated
+#    ✓ customer.subscription.deleted
+# 4. Click "Add endpoint"
+# 5. Click the endpoint → reveal "Signing secret"
+# 6. Copy the whsec_... value → add to .env as STRIPE_WEBHOOK_SECRET
+# 7. Rebuild backend: docker-compose up -d --build backend
+
+
+# ══════════════════════════════════════════════════════════
+# USEFUL COMMANDS
+# ══════════════════════════════════════════════════════════
+
+# View logs
+docker-compose logs -f backend
+docker-compose logs -f frontend
+docker-compose logs -f nginx
+
+# Restart a single service
+docker-compose restart backend
+
+# Rebuild and restart backend only (after code changes)
+docker-compose up -d --build backend
+
+# Rebuild and restart frontend only
+docker-compose up -d --build frontend
+
+# Run database migrations manually
+docker-compose exec backend alembic upgrade head
+
+# Open PostgreSQL shell
+docker-compose exec postgres psql -U apexverse -d apexverse
+
+# Backup database
+docker-compose exec postgres pg_dump -U apexverse apexverse > backup_$(date +%Y%m%d).sql
+
+# Stop everything
+docker-compose down
+
+# Stop and delete all data (DESTRUCTIVE)
+docker-compose down -v
+
+
+# ══════════════════════════════════════════════════════════
+# TROUBLESHOOTING
+# ══════════════════════════════════════════════════════════
+
+# Backend won't start?
+docker-compose logs backend
+# Common causes: missing .env values, wrong DATABASE_URL, postgres not ready
+
+# Frontend shows 502?
+docker-compose logs frontend
+# Common cause: missing output:"standalone" in next.config.ts
+
+# SSL not working?
+ls -la /opt/apexverse/nginx/certs/
+# Must have fullchain.pem and privkey.pem
+
+# Stripe webhooks failing?
+# Check STRIPE_WEBHOOK_SECRET is set correctly
+# Check https://api.apexverse.ai/billing/webhook is reachable
+
+# Migration errors?
+docker-compose exec backend alembic current
+docker-compose exec backend alembic history

@@ -1,0 +1,26 @@
+ΓÜá Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\support.rv\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\support.rv\OneDrive - Aga Khan University\Desktop\AKU SD Project\DS-I Africa\Scrapper\apexverse\package-lock.json
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 3.7s
+  Running TypeScript ...
+Failed to compile.
+
+./src/app/(app)/dashboard/page.tsx:26:450
+Type error: Type '{ n: string; s: number; style: { transform: string; }; }' is not assignable to type 'IntrinsicAttributes & { n: string; s?: number | undefined; c?: string | undefined; sw?: number | undefined; cls?: string | undefined; }'.
+  Property 'style' does not exist on type 'IntrinsicAttributes & { n: string; s?: number | undefined; c?: string | undefined; sw?: number | undefined; cls?: string | undefined; }'.
+
+  24 |           <div className="card ch"><div className="fxb mb3"><h3 style={{fontSize:13,fontWeight:600,color:'var(--text2)'}}>Pages extracted (This month)</h3><I n="layers" s={14} c="var(--text4)"/></div><div style={{fontFamily:'var(--ffd)',fontSize:28,fontWeight:800,marginBottom:6}}>47,200</div><div className="fxc" style={{gap:6,fontSize:12,color:'var(--text3)'}}><span className="fxc" style={{gap:3,color:'var(--green)',fontWeight:500}}><I n="trending-up" s={12}/> 12%</span> vs last month</div></div>
+  25 |           <div className="card ch"><div className="fxb mb3"><h3 style={{fontSize:13,fontWeight:600,color:'var(--text2)'}}>Active projects</h3><I n="folder" s={14} c="var(--text4)"/></div><div style={{fontFamily:'var(--ffd)',fontSize:28,fontWeight:800,marginBottom:6}}>8</div><div style={{fontSize:12,color:'var(--text3)'}}>2 nearing limit</div></div>
+> 26 |           <div className="card ch"><div className="fxb mb3"><h3 style={{fontSize:13,fontWeight:600,color:'var(--text2)'}}>Avg extraction time</h3><I n="zap" s={14} c="var(--text4)"/></div><div style={{fontFamily:'var(--ffd)',fontSize:28,fontWeight:800,marginBottom:6}}>1.4s</div><div className="fxc" style={{gap:6,fontSize:12,color:'var(--text3)'}}><span className="fxc" style={{gap:3,color:'var(--green)',fontWeight:500}}><I n="trending-up" s={12} style={{transform:'rotate(180deg)'}}/> 4%</span> vs last month</div></div>
+     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ^
+  27 |         </div>
+  28 |         <div className="dtw mb6">
+  29 |           <div className="fxb" style={{padding:'16px 20px',borderBottom:'1px solid var(--border)'}}><h2 style={{fontSize:15,fontWeight:600}}>Recent Extraction Runs</h2><button className="btn bg2btn bsm" onClick={()=>router.push('/analytics')}>View all logs</button></div>
+Next.js build worker exited with code: 1 and signal: null

@@ -1,0 +1,81 @@
+version: "3.9"
+
+# LOCAL DEVELOPMENT — no SSL, no nginx, direct ports
+# Run with: docker-compose -f docker-compose.local.yml up
+
+services:
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: apexverse_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: apexverse
+      POSTGRES_USER: apexverse
+      POSTGRES_PASSWORD: localpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U apexverse"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [apexverse]
+
+  redis:
+    image: redis:7-alpine
+    container_name: apexverse_redis
+    restart: unless-stopped
+    command: redis-server --requirepass localpassword
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks: [apexverse]
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: apexverse_backend
+    restart: unless-stopped
+    env_file: .env.local
+    environment:
+      DATABASE_URL: postgresql+asyncpg://apexverse:localpassword@postgres:5432/apexverse
+      REDIS_URL: redis://:localpassword@redis:6379/0
+      DEBUG: "true"
+    ports:
+      - "8050:8050"
+    volumes:
+      - ./backend:/app     # hot reload — code changes reflect instantly
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks: [apexverse]
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../backend/frontend.Dockerfile
+    platform: linux/arm64
+    container_name: apexverse_frontend
+    restart: unless-stopped
+    environment:
+      BACKEND_SIMPLE_API_BASE_URL: http://backend:8050
+      NEXT_PUBLIC_API_URL: http://localhost:8050
+      APEXCRAWL_URL: http://host.docker.internal:8060
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks: [apexverse]
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  apexverse:
+    driver: bridge

@@ -1,0 +1,191 @@
+╔══════════════════════════════════════════════════════════╗
+║       APEXVERSE — RUN ON YOUR LAPTOP (LOCAL DEV)         ║
+╚══════════════════════════════════════════════════════════╝
+
+WHAT YOU NEED INSTALLED:
+  ✓ Docker Desktop  →  https://www.docker.com/products/docker-desktop
+  ✓ That's it. Nothing else.
+
+──────────────────────────────────────────────────────────
+STEP 1 — Install Docker Desktop
+──────────────────────────────────────────────────────────
+
+  Windows: https://docs.docker.com/desktop/install/windows-install/
+  Mac:     https://docs.docker.com/desktop/install/mac-install/
+
+  After installing, open Docker Desktop and wait for it to say "Running".
+
+
+──────────────────────────────────────────────────────────
+STEP 2 — Organize your folders
+──────────────────────────────────────────────────────────
+
+  Create this folder structure on your laptop:
+
+  apexverse/
+  ├── backend/        ← paste the contents of apexverse-backend.zip here
+  ├── frontend/       ← paste your Next.js frontend code here
+  ├── docker-compose.local.yml
+  ├── .env.local
+  └── RUN_LOCAL.txt   ← this file
+
+  So the final structure inside apexverse/ should be:
+
+  apexverse/
+  ├── backend/
+  │   ├── app/
+  │   ├── alembic/
+  │   ├── Dockerfile
+  │   ├── requirements.txt
+  │   └── alembic.ini
+  ├── frontend/
+  │   ├── src/
+  │   ├── package.json
+  │   └── next.config.ts   ← make sure output:"standalone" is here
+  ├── docker-compose.local.yml
+  └── .env.local
+
+
+──────────────────────────────────────────────────────────
+STEP 3 — Add output:"standalone" to next.config.ts
+──────────────────────────────────────────────────────────
+
+  Open frontend/next.config.ts and make it look like this:
+
+  import path from "path";
+  import type { NextConfig } from "next";
+
+  const nextConfig: NextConfig = {
+    output: "standalone",      ← ADD THIS LINE
+    turbopack: {
+      root: path.resolve(__dirname),
+    },
+  };
+
+  export default nextConfig;
+
+
+──────────────────────────────────────────────────────────
+STEP 4 — (Optional) Add Stripe TEST keys
+──────────────────────────────────────────────────────────
+
+  To test payments locally:
+
+  1. Go to https://dashboard.stripe.com
+  2. Make sure you're in TEST MODE (toggle top-left)
+  3. Go to Products → Add product → create 6 prices
+     (same as production but with test prices)
+  4. Open .env.local and paste in:
+     - STRIPE_SECRET_KEY=sk_test_...
+     - STRIPE_PUBLISHABLE_KEY=pk_test_...
+     - STRIPE_PRICE_STARTER_MONTHLY=price_...  (etc)
+
+  To receive Stripe webhooks locally:
+  5. Install Stripe CLI: https://stripe.com/docs/stripe-cli
+  6. Run in a separate terminal:
+     stripe listen --forward-to localhost:8050/billing/webhook
+  7. Copy the webhook secret (whsec_...) → paste into .env.local
+
+
+──────────────────────────────────────────────────────────
+STEP 5 — START EVERYTHING
+──────────────────────────────────────────────────────────
+
+  Open a terminal, navigate to your apexverse/ folder:
+
+  Mac/Linux:
+    cd ~/Desktop/apexverse
+    docker-compose -f docker-compose.local.yml up --build
+
+  Windows (PowerShell):
+    cd C:\Users\YourName\Desktop\apexverse
+    docker-compose -f docker-compose.local.yml up --build
+
+  First time will take 3-5 minutes to download and build.
+  You'll see lots of logs scrolling — that's normal.
+
+  When you see:
+    apexverse_backend  | INFO: Application startup complete.
+    apexverse_frontend | ▲ Next.js ready on http://0.0.0.0:3000
+  ...everything is running!
+
+
+──────────────────────────────────────────────────────────
+STEP 6 — OPEN IN BROWSER
+──────────────────────────────────────────────────────────
+
+  Frontend:  http://localhost:3000
+  Backend:   http://localhost:8050
+  API Docs:  http://localhost:8050/docs   (only works in DEBUG mode)
+
+
+──────────────────────────────────────────────────────────
+EVERYDAY COMMANDS
+──────────────────────────────────────────────────────────
+
+  Start:
+    docker-compose -f docker-compose.local.yml up
+
+  Stop:
+    docker-compose -f docker-compose.local.yml down
+
+  Restart backend only (after code changes):
+    docker-compose -f docker-compose.local.yml restart backend
+
+  View backend logs:
+    docker-compose -f docker-compose.local.yml logs -f backend
+
+  View all logs:
+    docker-compose -f docker-compose.local.yml logs -f
+
+  Open database (psql):
+    docker-compose -f docker-compose.local.yml exec postgres psql -U apexverse -d apexverse
+
+  Delete everything and start fresh:
+    docker-compose -f docker-compose.local.yml down -v
+
+
+──────────────────────────────────────────────────────────
+TROUBLESHOOTING
+──────────────────────────────────────────────────────────
+
+  "Docker not found"
+  → Docker Desktop is not installed or not running. Open it first.
+
+  "Port 3000 already in use"
+  → Something else is using port 3000. Either stop it or change
+    the port in docker-compose.local.yml (e.g. "3001:3000")
+
+  "Port 8050 already in use"
+  → Change to "8051:8050" in docker-compose.local.yml
+    and update BACKEND_SIMPLE_API_BASE_URL=http://backend:8050 (stays same)
+
+  Backend crashes on startup?
+  → Run: docker-compose -f docker-compose.local.yml logs backend
+  → Most likely cause: syntax error or missing Python package
+
+  Frontend shows blank page?
+  → Make sure output:"standalone" is in next.config.ts
+  → Run: docker-compose -f docker-compose.local.yml logs frontend
+
+  Can't log in / 401 errors?
+  → Check JWT_SECRET is set in .env.local (any value works locally)
+
+  Emails not sending?
+  → That's fine locally. Emails are printed to the backend logs instead.
+    Run: docker-compose -f docker-compose.local.yml logs backend | grep EMAIL
+
+──────────────────────────────────────────────────────────
+DIFFERENCE BETWEEN LOCAL AND PRODUCTION
+──────────────────────────────────────────────────────────
+
+  Local                      Production
+  ─────────────────────────  ─────────────────────
+  http://localhost:3000      https://apexverse.ai
+  http://localhost:8050      https://api.apexverse.ai
+  No SSL                     SSL via Let's Encrypt
+  No Nginx                   Nginx reverse proxy
+  Emails logged only         Emails sent via SendGrid
+  Stripe test mode           Stripe live mode
+  DEBUG=true (shows /docs)   DEBUG=false
+  Hot reload (code changes)  Built images only

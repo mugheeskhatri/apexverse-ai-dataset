@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apexverse - The Future of AI Document Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+<script>
+const _ce=console.error.bind(console);
+console.error=(...a)=>{if(typeof a[0]==='string'&&a[0].includes('Babel'))return;_ce(...a);};
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FAFAF9;--bg2:#F4F3F1;--bg3:#ECEAE7;--surface:#FFFFFF;
+  --border:#E8E5E2;--border2:#D4D0CB;
+  --text:#18170F;--text2:#46443E;--text3:#78756E;--text4:#A8A5A0;
+  --accent:#18170F;--brand:#D4622A;--brand-light:#FAF0EA;--brand-dark:#B84E1A;
+  --green:#1A7A4F;--green-bg:#E8F5EE;--red:#C0392B;--red-bg:#FDECEA;
+  --yellow:#B86E00;--yellow-bg:#FEF3E2;--blue:#1A5FAB;--blue-bg:#E8F0FB;
+  --r:10px;--rlg:16px;--rxl:22px;
+  --sh:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  --sh2:0 4px 16px rgba(0,0,0,0.07),0 2px 6px rgba(0,0,0,0.04);
+  --sh3:0 16px 48px rgba(0,0,0,0.09),0 4px 16px rgba(0,0,0,0.05);
+  --ff:"DM Sans",sans-serif;--ffd:"Syne",sans-serif;--ffm:"DM Mono",monospace;
+}
+html{scroll-behavior:smooth}
+body{max-width:1440px;margin-left:auto;margin-right:auto;font-family:var(--ff);background:var(--bg);color:var(--text);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--ffd);font-weight:700;line-height:1.15;color:var(--text)}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInF{from{opacity:0}to{opacity:1}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.ai{animation:fadeIn .35s ease forwards}.aif{animation:fadeInF .2s ease forwards}
+.afloat{animation:float 3s ease-in-out infinite}.aspin{animation:spin .9s linear infinite}.apulse{animation:pulse 2s ease infinite}
+.sk{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg2) 50%,var(--bg3) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:var(--r)}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:var(--r);font-family:var(--ff);font-size:14px;font-weight:500;cursor:pointer;border:none;transition:all .17s;white-space:nowrap;line-height:1;text-decoration:none}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+.bp{background:var(--accent);color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.bp:hover:not(:disabled){background:#2D2C28;transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.14)}
+.bbr{background:var(--brand);color:#fff}
+.bbr:hover:not(:disabled){background:var(--brand-dark);transform:translateY(-1px);box-shadow:0 4px 16px rgba(212,98,42,.3)}
+.bs{background:var(--surface);color:var(--text);border:1px solid var(--border);box-shadow:var(--sh)}
+.bs:hover:not(:disabled){background:var(--bg2);border-color:var(--border2)}
+.bg2btn{background:transparent;color:var(--text3);padding:7px 11px}
+.bg2btn:hover:not(:disabled){background:var(--bg2);color:var(--text)}
+.bdn{background:var(--red-bg);color:var(--red);border:1px solid rgba(192,57,43,.18)}
+.bdn:hover:not(:disabled){background:#f5c5c0}
+.bsm{padding:7px 13px;font-size:13px}.blg{padding:13px 26px;font-size:15px;font-weight:600;border-radius:12px}
+.bxl{padding:14px 32px;font-size:16px;font-weight:600;border-radius:13px}.bfw{width:100%;justify-content:center}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:22px;box-shadow:var(--sh)}
+.ch{transition:all .18s}.ch:hover{transform:translateY(-2px);box-shadow:var(--sh2);border-color:var(--border2)}
+.fg{display:flex;flex-direction:column;gap:5px}.fl{font-size:13px;font-weight:500;color:var(--text2)}
+.fi,.fse,.fta{padding:10px 13px;border:1px solid var(--border);border-radius:var(--r);font-family:var(--ff);font-size:14px;color:var(--text);background:var(--surface);outline:none;transition:all .14s;width:100%}
+.fi:focus,.fse:focus,.fta:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(24,23,15,.07)}
+.fi::placeholder{color:var(--text4)}.fie{border-color:var(--red)!important}.ferr{font-size:12px;color:var(--red)}
+.fta{resize:vertical;min-height:100px}
+.fse{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2378756E' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:36px}
+.tog{position:relative;display:inline-block;width:40px;height:22px;flex-shrink:0}
+.tog input{opacity:0;width:0;height:0}.tsl{position:absolute;inset:0;cursor:pointer;background:var(--border2);border-radius:22px;transition:.18s}
+.tsl::before{content:"";position:absolute;width:16px;height:16px;left:3px;top:3px;background:white;border-radius:50%;transition:.18s;box-shadow:0 1px 3px rgba(0,0,0,.14)}
+.tog input:checked+.tsl{background:var(--accent)}.tog input:checked+.tsl::before{transform:translateX(18px)}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:100px;font-size:12px;font-weight:500}
+.bgg{background:var(--green-bg);color:var(--green)}.bgr2{background:var(--red-bg);color:var(--red)}
+.bgy{background:var(--yellow-bg);color:var(--yellow)}.bgb{background:var(--blue-bg);color:var(--blue)}
+.bggr{background:var(--bg3);color:var(--text3)}.bgd{background:var(--accent);color:white}
+.tabs{display:flex;gap:2px;background:var(--bg2);border-radius:var(--r);padding:3px}
+.tab{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:500;color:var(--text3);cursor:pointer;transition:all .14s;border:none;background:transparent;font-family:var(--ff)}
+.tab.act{background:var(--surface);color:var(--text);box-shadow:var(--sh)}.tab:hover:not(.act){color:var(--text2)}
+.ntab{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--r);font-size:14px;font-weight:500;color:var(--text3);cursor:pointer;transition:all .14s;border:none;background:transparent;font-family:var(--ff);text-align:left;width:100%}
+.ntab:hover{background:var(--bg2);color:var(--text)}.ntab.act{background:var(--bg2);color:var(--text)}
+.moverlay{position:fixed;inset:0;background:rgba(0,0,0,.36);backdrop-filter:blur(4px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeInF .14s ease}
+.modal{background:var(--surface);border-radius:var(--rxl);box-shadow:var(--sh3);max-width:480px;width:100%;max-height:90vh;overflow-y:auto;animation:fadeIn .18s ease}
+.mh{padding:20px 20px 14px;border-bottom:1px solid var(--border)}.mbody{padding:20px}.mf{padding:13px 20px;border-top:1px solid var(--border);display:flex;gap:9px;justify-content:flex-end}
+.tc{position:fixed;bottom:20px;right:20px;z-index:2000;display:flex;flex-direction:column;gap:9px;pointer-events:none}
+.toast{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);box-shadow:var(--sh3);min-width:280px;max-width:390px;animation:fadeIn .22s ease;pointer-events:all}
+.tts{border-left:3px solid var(--green)}.tte{border-left:3px solid var(--red)}.tti{border-left:3px solid var(--blue)}.ttw{border-left:3px solid var(--yellow)}
+.dt{width:100%;border-collapse:collapse}
+.dt th{padding:9px 14px;text-align:left;font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border)}
+.dt td{padding:12px 14px;border-bottom:1px solid var(--border);font-size:14px;vertical-align:middle}
+.dt tr:last-child td{border-bottom:none}.dt tr:hover td{background:var(--bg)}
+.dtw{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);overflow:hidden}
+.mc{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:19px 21px}
+.mv{font-family:var(--ffd);font-size:28px;font-weight:800;line-height:1;margin:7px 0 4px}
+.pb{height:6px;background:var(--bg3);border-radius:100px;overflow:hidden}
+.pf{height:100%;border-radius:100px;background:var(--accent);transition:width .3s}
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:66px 24px;color:var(--text3)}
+.ei{width:64px;height:64px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rxl);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.empty h3{font-size:16px;color:var(--text);margin-bottom:6px}.empty p{font-size:13px;max-width:290px;line-height:1.6}
+.alert{padding:12px 16px;border-radius:var(--r);border:1px solid;display:flex;align-items:flex-start;gap:10px;font-size:14px}
+.aii{background:var(--blue-bg);border-color:rgba(26,95,171,.2);color:var(--blue)}
+.awi{background:var(--yellow-bg);border-color:rgba(184,110,0,.2);color:var(--yellow)}
+.asi{background:var(--green-bg);border-color:rgba(26,122,79,.2);color:var(--green)}
+.aei{background:var(--red-bg);border-color:rgba(192,57,43,.2);color:var(--red)}
+.app{display:flex;min-height:100vh}
+.sidebar{width:232px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;overflow-y:auto}
+.sbh{padding:17px 13px 13px;border-bottom:1px solid var(--border)}.sbn{flex:1;padding:9px 7px}
+.sbf{padding:9px 7px 13px;border-top:1px solid var(--border)}
+.mc2{margin-left:232px;flex:1;display:flex;flex-direction:column;min-height:100vh}
+.topbar{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:50}
+.pc{flex:1;padding:26px 24px}
+.pnav{position:sticky;top:0;z-index:200;background:rgba(250,250,249,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center}
+.pni{max-width:1160px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;width:100%}
+.nlink{padding:6px 12px;border-radius:8px;font-size:14px;font-weight:500;color:var(--text3);cursor:pointer;transition:all .14s;border:none;background:transparent;font-family:var(--ff)}
+.nlink:hover{color:var(--text);background:var(--bg2)}.nlink.nact{color:var(--text)}
+.hero{padding:92px 24px 68px;text-align:center;background:var(--bg);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:660px;height:660px;border-radius:50%;background:radial-gradient(circle,rgba(212,98,42,.05) 0%,transparent 70%);pointer-events:none}
+.hbadge{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;background:var(--surface);border:1px solid var(--border);border-radius:100px;font-size:13px;font-weight:500;color:var(--text2);margin-bottom:24px;box-shadow:var(--sh)}
+.hdot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;animation:pulse 2s ease infinite}
+.hero h1{font-size:clamp(36px,5.5vw,68px);font-weight:800;line-height:1.07;letter-spacing:-.03em;margin-bottom:20px;max-width:800px;margin-left:auto;margin-right:auto}
+.hero p{font-size:clamp(15px,2vw,18px);color:var(--text3);max-width:520px;margin:0 auto 36px;line-height:1.65}
+.sec{max-width:1160px;margin:0 auto}
+.stag{display:inline-block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--brand);margin-bottom:10px}
+.code{background:#18170F;border-radius:var(--rlg);padding:20px;font-family:var(--ffm);font-size:13px;color:#E8E5E2;overflow-x:auto;line-height:1.75}
+.ck{color:#D4622A}.cs{color:#7EC69C}.cc{color:#5A5856}.cn{color:#79B8FF}
+.pcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--rxl);padding:28px}
+.pcard.feat{background:var(--accent);color:white;border-color:var(--accent);box-shadow:var(--sh3);transform:scale(1.02)}
+.pcard.feat *{color:white!important}
+.pcard.efeat{background:linear-gradient(135deg,#1a1208 0%,#2d1a0a 100%);border-color:var(--brand);box-shadow:0 8px 32px rgba(212,98,42,.2)}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;cursor:pointer}
+.lm{width:30px;height:30px;background:var(--brand);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lt{font-family:var(--ffd);font-size:16px;font-weight:800;color:var(--text)}
+.av{width:30px;height:30px;border-radius:50%;background:var(--accent);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:var(--ffd);cursor:pointer;flex-shrink:0}
+.dd{position:absolute;background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);box-shadow:var(--sh3);min-width:200px;z-index:300;animation:fadeIn .13s ease;overflow:hidden}
+.ddi{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:14px;color:var(--text2);cursor:pointer;transition:background .1s;border:none;background:none;font-family:var(--ff);width:100%;text-align:left}
+.ddi:hover{background:var(--bg2)}.ddng{color:var(--red)}.ddsep{border-top:1px solid var(--border);margin:4px 0}
+.plancard{background:linear-gradient(135deg,var(--accent) 0%,#2D2C28 100%);border-radius:var(--rxl);padding:28px;color:white;position:relative;overflow:hidden}
+.plancard::after{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:rgba(255,255,255,.04);border-radius:50%}
+.wdot{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;transition:all .18s}
+.wdd{background:var(--accent);color:white}.wda{background:var(--accent);color:white;box-shadow:0 0 0 4px rgba(24,23,15,.1)}.wdp{background:var(--bg3);color:var(--text3);border:1px solid var(--border)}
+.wline{flex:1;height:1px;background:var(--border);margin:0 6px}.wldone{background:var(--accent)}
+.footer{background:var(--text);color:rgba(255,255,255,.4);padding:56px 24px 26px}
+.fg2{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:32px;max-width:1160px;margin:0 auto}
+.fc h4{font-family:var(--ffd);font-size:11px;font-weight:600;color:rgba(255,255,255,.42);text-transform:uppercase;letter-spacing:.06em;margin-bottom:13px}
+.fl2{display:block;font-size:14px;color:rgba(255,255,255,.38);margin-bottom:8px;cursor:pointer;transition:color .14s;border:none;background:none;font-family:var(--ff);text-align:left}
+.fl2:hover{color:rgba(255,255,255,.72)}
+.fb{max-width:1160px;margin:40px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}}
+@media(max-width:1100px){.g4{grid-template-columns:1fr 1fr}}
+.fxc{display:flex;align-items:center}.fxb{display:flex;align-items:center;justify-content:space-between}
+.rel{position:relative}.ptr{cursor:pointer}.muted{color:var(--text3)}.mono{font-family:var(--ffm)}
+.tru{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mt2{margin-top:8px}.mt3{margin-top:12px}.mt4{margin-top:16px}.mt6{margin-top:24px}
+.mb2{margin-bottom:8px}.mb3{margin-bottom:12px}.mb4{margin-bottom:16px}.mb6{margin-bottom:24px}
+.w100{width:100%}.bt{border-top:1px solid var(--border)}.bb{border-bottom:1px solid var(--border)}
+@media(max-width:768px){
+  .sidebar{display:none}.mc2{margin-left:0}.hero{padding:52px 16px 40px}
+  .pni{padding:0 14px}.fg2{grid-template-columns:1fr}.pc{padding:16px 12px}
+  .topbar{padding:0 12px}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+const {useState,useEffect,useRef,useCallback,createContext,useContext}=React;
+
+const P={
+  zap:'M13 2L3 14h9l-1 8 10-12h-9l1-8z',check:'M20 6L9 17l-5-5',x:'M18 6L6 18M6 6l12 12',
+  plus:'M12 5v14M5 12h14',minus:'M5 12h14','chevron-down':'M6 9l6 6 6-6',
+  'chevron-right':'M9 18l6-6-6-6','chevron-left':'M15 18l-6-6 6-6',
+  'arrow-right':'M5 12h14M12 5l7 7-7 7','arrow-up-right':'M7 17L17 7M7 7h10v10',
+  search:'M11 19a8 8 0 100-16 8 8 0 000 16zm5-3l4 4',
+  bell:'M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0',
+  settings:'M12 15a3 3 0 100-6 3 3 0 000 6zM19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z',
+  user:'M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z',
+  users:'M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75',
+  'log-out':'M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9',
+  home:'M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2zM9 22V12h6v10',
+  folder:'M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z',
+  'bar-chart':'M18 20V10M12 20V4M6 20v-6',
+  'credit-card':'M21 4H3a2 2 0 00-2 2v12a2 2 0 002 2h18a2 2 0 002-2V6a2 2 0 00-2-2zM1 10h22',
+  book:'M4 19.5A2.5 2.5 0 016.5 17H20M4 19.5A2.5 2.5 0 004 22h16V2H6.5A2.5 2.5 0 004 4.5v15z',
+  'life-buoy':'M12 22a10 10 0 100-20 10 10 0 000 20zM4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M14.83 9.17l4.24-4.24M4.93 19.07l4.24-4.24',
+  'external-link':'M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3',
+  download:'M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3',
+  'refresh-cw':'M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15',
+  globe:'M12 22a10 10 0 100-20 10 10 0 000 20zM2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z',
+  database:'M12 2C6.48 2 2 4.24 2 7v10c0 2.76 4.48 5 10 5s10-2.24 10-5V7c0-2.76-4.48-5-10-5zM2 12c0 2.76 4.48 5 10 5s10-2.24 10-5M2 7c0 2.76 4.48 5 10 5s10-2.24 10-5',
+  cpu:'M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18',
+  shield:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+  lock:'M19 11H5a2 2 0 00-2 2v7a2 2 0 002 2h14a2 2 0 002-2v-7a2 2 0 00-2-2zM7 11V7a5 5 0 0110 0v4',
+  eye:'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 9a3 3 0 100 6 3 3 0 000-6z',
+  'eye-off':'M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24M1 1l22 22',
+  mail:'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zM22 6l-10 7L2 6',
+  'alert-circle':'M12 22a10 10 0 100-20 10 10 0 000 20zM12 8v4M12 16h.01',
+  info:'M12 22a10 10 0 100-20 10 10 0 000 20zM12 16v-4M12 8h.01',
+  'check-circle':'M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3',
+  'alert-triangle':'M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01',
+  'trending-up':'M23 6l-9.5 9.5-5-5L1 18M17 6h6v6',
+  package:'M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z',
+  layers:'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5',
+  code:'M16 18l6-6-6-6M8 6l-6 6 6 6',
+  'file-text':'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8',
+  list:'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01',
+  grid:'M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z',
+  send:'M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z',
+  clock:'M12 22a10 10 0 100-20 10 10 0 000 20zM12 6v6l4 2',
+  activity:'M22 12h-4l-3 9L9 3l-3 9H2',
+  filter:'M22 3H2l8 9.46V19l4 2v-8.54L22 3',
+  'more-horizontal':'M12 13a1 1 0 100-2 1 1 0 000 2zM19 13a1 1 0 100-2 1 1 0 000 2zM5 13a1 1 0 100-2 1 1 0 000 2z',
+  trash:'M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6',
+  edit:'M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z',
+  link:'M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71',
+  award:'M12 15a7 7 0 100-14 7 7 0 000 14zM8.21 13.89L7 23l5-3 5 3-1.21-9.12',
+  key:'M21 2l-2 2m-7.61 7.61a5.5 5.5 0 11-7.778 7.778 5.5 5.5 0 017.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4',
+  play:'M5 3l14 9-14 9V3z',
+  copy:'M20 9h-9a2 2 0 00-2 2v9a2 2 0 002 2h9a2 2 0 002-2v-9a2 2 0 00-2-2zM5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1',
+  tag:'M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82zM7 7h.01',
+};
+const I=({n,s=16,c='currentColor',sw=1.8,cls=''})=>(
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" className={cls} style={{flexShrink:0}}>
+    <path d={P[n]||P['alert-circle']}/>
+  </svg>
+);
+const Spin=({s=16})=>(
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="aspin" style={{flexShrink:0}}>
+    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" opacity="0.3"/>
+    <path d="M12 2v4"/>
+  </svg>
+);
+
+// -- DATA --------------------------------------------------------
+const PROJECTS=[
+  {id:1,name:'Acme Docs',domain:'docs.acme.io',status:'active',pages:1842,lastRun:'2h ago',created:'Jan 12, 2026'},
+  {id:2,name:'TechBlog Ingest',domain:'techblog.example.com',status:'processing',pages:423,lastRun:'Running...',created:'Feb 3, 2026'},
+  {id:3,name:'Support KB',domain:'support.helpdesk.io',status:'failed',pages:0,lastRun:'Yesterday',created:'Feb 14, 2026'},
+  {id:4,name:'Product Site',domain:'myproduct.com',status:'active',pages:687,lastRun:'5 days ago',created:'Mar 1, 2026'},
+  {id:5,name:'E-commerce Catalog',domain:'shop.bigstore.com',status:'active',pages:12840,lastRun:'12h ago',created:'Mar 5, 2026'},
+];
+const PAGES_DATA=[
+  {id:1,title:'Getting Started',url:'/docs/getting-started',status:'extracted',type:'Docs',chunks:12},
+  {id:2,title:'API Reference',url:'/docs/api',status:'extracted',type:'Reference',chunks:48},
+  {id:3,title:'Authentication',url:'/docs/auth',status:'extracted',type:'Docs',chunks:8},
+  {id:4,title:'Webhooks',url:'/docs/webhooks',status:'extracted',type:'Docs',chunks:11},
+  {id:5,title:'Rate Limits',url:'/docs/rate-limits',status:'skipped',type:'Reference',chunks:3},
+  {id:6,title:'Changelog',url:'/changelog',status:'extracted',type:'Blog',chunks:22},
+];
+const RUNS=[
+  {id:'run_abc123',date:'Mar 9, 2026 14:22',status:'completed',dur:'3m 42s',pages:1842,errs:3},
+  {id:'run_def456',date:'Mar 7, 2026 10:15',status:'completed',dur:'4m 11s',pages:1839,errs:1},
+  {id:'run_ghi789',date:'Mar 5, 2026 09:02',status:'failed',dur:'1m 22s',pages:0,errs:14},
+  {id:'run_jkl012',date:'Mar 3, 2026 16:44',status:'completed',dur:'3m 58s',pages:1820,errs:5},
+];
+const INVOICES=[
+  {id:'INV-0012',date:'Mar 1, 2026',amt:'$129.00',status:'paid',plan:'Growth'},
+  {id:'INV-0011',date:'Feb 1, 2026',amt:'$129.00',status:'paid',plan:'Growth'},
+  {id:'INV-0010',date:'Jan 1, 2026',amt:'$129.00',status:'paid',plan:'Growth'},
+  {id:'INV-0009',date:'Dec 1, 2025',amt:'$59.00',status:'paid',plan:'Starter'},
+];
+const MEMBERS=[
+  {id:1,name:'Alex Chen',email:'alex@acme.io',role:'Owner',av:'AC',joined:'Jan 2026'},
+  {id:2,name:'Sarah Kim',email:'sarah@acme.io',role:'Admin',av:'SK',joined:'Feb 2026'},
+  {id:3,name:'Marcus Lee',email:'marcus@acme.io',role:'Member',av:'ML',joined:'Mar 2026'},
+];
+const NOTIFS=[
+  {id:1,type:'success',title:'Crawl completed',body:'Acme Docs - 1,842 pages extracted successfully',time:'2h ago'},
+  {id:2,type:'warning',title:'Approaching limit',body:"You've used 47,200 of 50,000 pages this month",time:'1 day ago'},
+  {id:3,type:'error',title:'Crawl failed',body:'Support KB - connection timeout on 14 pages',time:'2 days ago'},
+  {id:4,type:'info',title:'Invoice ready',body:'Invoice INV-0012 for $129.00 is available',time:'8 days ago'},
+];
+
+// -- TOAST --------------------------------------------------------
+const TC=createContext(null);
+const ToastProvider=({children})=>{
+  const [toasts,setToasts]=useState([]);
+  const show=useCallback((msg,type)=>{
+    const t=type||'success';
+    const id=Date.now();
+    setToasts(prev=>[...prev,{id,msg,t}]);
+    setTimeout(()=>setToasts(prev=>prev.filter(x=>x.id!==id)),3200);
+  },[]);
+  const icons={success:'check-circle',error:'alert-circle',warning:'alert-triangle',info:'info'};
+  const colors={success:'var(--green)',error:'var(--red)',warning:'var(--yellow)',info:'var(--blue)'};
+  return(
+    <TC.Provider value={show}>
+      {children}
+      <div className="tc">
+        {toasts.map(t=>(
+          <div key={t.id} className={'toast tt'+t.t[0]}>
+            <I n={icons[t.t]} s={16} c={colors[t.t]}/>
+            <span style={{fontSize:14,color:'var(--text)',flex:1}}>{t.msg}</span>
+            <button onClick={()=>setToasts(prev=>prev.filter(x=>x.id!==t.id))} style={{background:'none',border:'none',cursor:'pointer',color:'var(--text3)',padding:0}}>
+              <I n="x" s={13}/>
+            </button>
+          </div>
+        ))}
+      </div>
+    </TC.Provider>
+  );
+};
+const useToast=()=>useContext(TC);
+
+// -- SHARED -------------------------------------------------------
+const Logo=({dark})=>(
+  <div className="logo">
+    <div className="lm">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/>
+        <line x1="12" y1="2" x2="12" y2="22"/>
+        <line x1="2" y1="8.5" x2="22" y2="8.5"/>
+        <line x1="2" y1="15.5" x2="22" y2="15.5"/>
+      </svg>
+    </div>
+    <span className="lt" style={dark?{color:'white'}:{}}><span style={dark?{color:'white'}:{}}>Apex</span><span style={{color:'var(--brand)'}}>verse</span></span>
+  </div>
+);
+
+const SBadge=({status})=>{
+  const m={
+    active:{cls:'bgg',l:'Active',dot:true},
+    processing:{cls:'bgb',l:'Processing',dot:true},
+    failed:{cls:'bgr2',l:'Failed'},
+    completed:{cls:'bgg',l:'Completed'},
+    pending:{cls:'bgy',l:'Pending'},
+    extracted:{cls:'bgg',l:'Extracted'},
+    skipped:{cls:'bggr',l:'Skipped'},
+    paid:{cls:'bgg',l:'Paid'},
+    ready:{cls:'bgg',l:'Ready'},
+  };
+  const c=m[status]||{cls:'bggr',l:status};
+  return(
+    <span className={'badge '+c.cls}>
+      {c.dot&&<span style={{width:5,height:5,borderRadius:'50%',background:'currentColor',flexShrink:0}}/>}
+      {c.l}
+    </span>
+  );
+};
+
+const SkCard=()=>(
+  <div className="card" style={{display:'flex',flexDirection:'column',gap:9}}>
+    <div className="sk" style={{height:12,width:'55%'}}/>
+    <div className="sk" style={{height:26,width:'38%'}}/>
+    <div className="sk" style={{height:10,width:'75%'}}/>
+  </div>
+);
+
+// PUBLIC NAV
+const PubNav=({page,setPage,loggedIn})=>(
+  <nav className="pnav">
+    <div className="pni">
+      <div className="fxc" style={{gap:32}}>
+        <button onClick={()=>setPage('home')} style={{background:'none',border:'none',cursor:'pointer',padding:0}}><Logo/></button>
+        <div className="fxc" style={{gap:1}}>
+          {[['features','Features'],['integrations','Integrations'],['pricing','Pricing'],['enterprise','Enterprise'],['docs','Docs']].map(([p,l])=>(
+            <button key={p} className={`nlink${page===p?' nact':''}`} onClick={()=>setPage(p)}>{l}</button>
+          ))}
+        </div>
+      </div>
+      <div className="fxc" style={{gap:8}}>
+        {loggedIn?(
+          <button className="btn bp bsm" onClick={()=>setPage('dashboard')}><I n="home" s={13} c="white"/>Dashboard</button>
+        ):(
+          <>
+            <button className="btn bg2btn bsm" onClick={()=>setPage('login')}>Log in</button>
+            <button className="btn bp bsm" onClick={()=>setPage('signup')}>Start free trial</button>
+          </>
+        )}
+      </div>
+    </div>
+  </nav>
+);
+
+// FOOTER
+const Footer=({setPage})=>(
+  <footer className="footer">
+    <div className="fg2">
+      <div className="fc">
+        <Logo dark/><p style={{fontSize:13,color:'rgba(255,255,255,.32)',marginTop:13,lineHeight:1.7,maxWidth:240}}>Enterprise website ingestion for AI systems. Turn any website into AI-ready structured data.</p>
+      </div>
+      {[{h:'Product',links:[['Features','features'],['Integrations','integrations'],['Pricing','pricing'],['Enterprise','enterprise'],['Changelog','home']]},
+        {h:'Developers',links:[['Docs','docs'],['API Reference','docs'],['SDKs','docs'],['Status','home'],['Security','enterprise']]},
+        {h:'Company',links:[['About','about'],['Blog','home'],['Careers','home'],['Contact','contact'],['Privacy','privacy']]},
+        {h:'Legal',links:[['Terms','terms'],['Privacy','privacy'],['Cookies','cookies'],['DPA','home']]},
+      ].map(col=>(
+        <div key={col.h} className="fc">
+          <h4>{col.h}</h4>
+          {col.links.map(([l,p])=>(
+            <button key={l} className="fl2" onClick={()=>setPage(p)}>{l}</button>
+          ))}
+        </div>
+      ))}
+    </div>
+    <div className="fb">
+      <span>© 2026 DataForge AI, Inc. All rights reserved.</span>
+      <div className="fxc" style={{gap:18}}>
+        {['Twitter/X','LinkedIn','GitHub'].map(s=><button key={s} className="fl2" style={{margin:0}}>{s}</button>)}
+      </div>
+    </div>
+  </footer>
+);
+
+// HOME PAGE
+const HomePage=({setPage})=>{
+  const [url,setUrl]=useState('');
+  const [testing,setTesting]=useState(false);
+  const [testRes,setTestRes]=useState(null);
+  const [openFaq,setOpenFaq]=useState(null);
+  const toast=useToast();
+  const faqs=[
+    {q:'What output formats do you support?',a:'JSON, JSONL, Markdown, chunked text, and CSV metadata - compatible with every major AI pipeline.'},
+    {q:'Can it handle JavaScript-rendered websites?',a:'Yes. Our JS rendering engine uses a full headless browser for React, Vue, Angular, and any SPA.'},
+    {q:'How does pricing work for large crawls?',a:'Pages are counted per successful extraction. Upgrade mid-cycle anytime. Unused pages reset monthly.'},
+    {q:'Is there a free trial?',a:'Yes - start with 500 free pages, no credit card required.'},
+    {q:'Do you respect robots.txt?',a:'By default yes. Enterprise plans can optionally override with the domain owner\'s permission.'},
+    {q:'Which vector databases are supported?',a:'Pinecone, Qdrant, Weaviate, Milvus, PGVector, Azure AI Search - with more added monthly.'},
+  ];
+  return(
+    <div className="ai">
+      {/* Hero */}
+      <div className="hero">
+        <div className="hbadge"><span className="hdot"/>Now in GA . Enterprise plans available <I n="arrow-right" s={10} c="var(--text3)"/></div>
+        <h1>Turn Any Website Into<br/><span style={{color:'var(--brand)'}}>AI-Ready Data</span></h1>
+        <p>Automatically crawl, clean, structure, and prepare website content for chatbots, RAG pipelines, and enterprise AI systems.</p>
+        <div className="fxc" style={{justifyContent:'center',gap:11,flexWrap:'wrap'}}>
+          <button className="btn bbr bxl" onClick={()=>setPage('signup')}>Start free <I n="arrow-right" s={15} c="white"/></button>
+          <button className="btn bs blg" onClick={()=>setPage('features')}>How it works</button>
+        </div>
+        {/* URL Test */}
+        <div style={{maxWidth:580,margin:'48px auto 0',background:'var(--surface)',border:'1px solid var(--border)',borderRadius:'var(--rxl)',padding:20,boxShadow:'var(--sh3)'}}>
+          <div style={{marginBottom:12,textAlign:'left'}}>
+            <div style={{fontSize:13,fontWeight:600,color:'var(--text2)',marginBottom:1}}>Try it live - enter any URL</div>
+            <div style={{fontSize:12,color:'var(--text4)'}}>See extraction in seconds. No signup needed.</div>
+          </div>
+          <div className="fxc" style={{gap:9}}>
+            <input className="fi" style={{flex:1,fontFamily:'var(--ffm)',fontSize:13}} placeholder="https://docs.yourproduct.com" value={url} onChange={e=>setUrl(e.target.value)} onKeyDown={e=>e.key==='Enter'&&!testing&&(setTesting(true),setTimeout(()=>{setTesting(false);setTestRes({pages:142,chunks:1840});toast('Test complete - 142 pages extracted!','success');},2000))}/>
+            <button className="btn bp" onClick={()=>{if(!url){toast('Enter a URL first','error');return;}setTesting(true);setTimeout(()=>{setTesting(false);setTestRes({pages:142,chunks:1840});toast('Test complete!','success');},2000);}} disabled={testing}>
+              {testing?<><Spin s={13}/>Crawling...</>:<><I n="zap" s={13} c="white"/>Extract</>}
+            </button>
+          </div>
+          {testRes&&(
+            <div style={{marginTop:12,padding:'10px 13px',background:'var(--bg2)',borderRadius:'var(--r)',border:'1px solid var(--border)',display:'flex',gap:20,flexWrap:'wrap'}}>
+              {[['Pages',testRes.pages,'check-circle','var(--green)'],['Chunks',testRes.chunks,'layers','var(--blue)'],['Time','1.8s','clock','var(--brand)']].map(([l,v,ico,c])=>(
+                <div key={l} className="fxc" style={{gap:7}}>
+                  <I n={ico} s={14} c={c}/>
+                  <div><div style={{fontFamily:'var(--ffd)',fontWeight:800,fontSize:17,lineHeight:1}}>{v}</div><div style={{fontSize:11,color:'var(--text3)'}}>{l}</div></div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Logo strip */}
+      <div style={{background:'var(--surface)',borderTop:'1px solid var(--border)',borderBottom:'1px solid var(--border)',padding:'24px 24px',textAlign:'center'}}>
+        <div style={{fontSize:11,fontWeight:600,textTransform:'uppercase',letterSpacing:'.08em',color:'var(--text4)',marginBottom:16}}>Trusted by AI teams at</div>
+        <div className="fxc" style={{justifyContent:'center',gap:32,flexWrap:'wrap'}}>
+          {['Acme Corp','Veritas AI','Meridian Labs','Apex Systems','NovaTech','Citadel AI','Quantum Data'].map(l=>(
+            <span key={l} style={{fontSize:13,fontWeight:700,fontFamily:'var(--ffd)',color:'var(--text4)',opacity:.5,letterSpacing:'-.01em'}}>{l}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* Stats */}
+      <div style={{background:'var(--bg2)',borderBottom:'1px solid var(--border)'}}>
+        <div className="fxc" style={{justifyContent:'center',gap:48,padding:'28px 24px',flexWrap:'wrap'}}>
+          {[['1.2B+','Pages processed'],['40K+','Active projects'],['99.9%','Uptime SLA'],['<60s','Avg extract time']].map(([v,l])=>(
+            <div key={l} style={{textAlign:'center'}}><div style={{fontFamily:'var(--ffd)',fontSize:24,fontWeight:800}}>{v}</div><div style={{fontSize:12,color:'var(--text3)',marginTop:2}}>{l}</div></div>
+          ))}
+        </div>
+      </div>
+
+      {/* How it works */}
+      <div style={{padding:'80px 24px',background:'var(--bg)'}}>
+        <div className="sec" style={{textAlign:'center'}}>
+          <div className="stag">How It Works</div>
+          <h2 style={{fontSize:'clamp(24px,3.5vw,38px)',marginBottom:13}}>From URL to AI-ready in three steps</h2>
+          <p style={{fontSize:16,color:'var(--text3)',marginBottom:48,maxWidth:480,margin:'0 auto 48px'}}>No complex setup. Point DataForge at any website and get clean, structured AI output.</p>
+          <div className="g3">
+            {[{n:1,t:'Connect your URL',d:'Enter your target URL, configure depth and path filters.',ico:'link'},
+              {n:2,t:'Extract & structure',d:'Crawl every page, clean content, chunk intelligently.',ico:'cpu'},
+              {n:3,t:'Export or deliver',d:'Download files or push directly to your vector database.',ico:'send'}].map(s=>(
+              <div key={s.n} style={{padding:'26px 22px',background:'var(--surface)',border:'1px solid var(--border)',borderRadius:'var(--rlg)'}}>
+                <div style={{width:38,height:38,background:'var(--accent)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 16px',fontFamily:'var(--ffd)',fontWeight:800,color:'white',fontSize:15}}>{s.n}</div>
+                <h3 style={{fontSize:16,marginBottom:8}}>{s.t}</h3>
+                <p style={{fontSize:13,color:'var(--text3)',lineHeight:1.65}}>{s.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Features */}
+      <div style={{background:'var(--surface)',borderTop:'1px solid var(--border)',borderBottom:'1px solid var(--border)',padding:'80px 24px'}}>
+        <div className="sec">
+          <div style={{textAlign:'center',marginBottom:48}}>
+            <div className="stag">Platform Features</div>
+            <h2 style={{fontSize:'clamp(24px,3.5vw,38px)'}}>Everything your AI pipeline needs</h2>
+          </div>
+          <div className='mini-feat-grid'>
+            {[{ico:'globe',t:'Full-Site Crawling',d:'Discover and crawl every page, respecting robots.txt and rate limits.'},
+              {ico:'layers',t:'Smart Chunking',d:'RAG-ready chunks with configurable size and overlap.'},
+              {ico:'code',t:'Structured Outputs',d:'JSON, JSONL, Markdown, CSV - for any AI pipeline.'},
+              {ico:'database',t:'Vector DB Delivery',d:'Push to Pinecone, Qdrant, Weaviate and more.'},
+              {ico:'cpu',t:'JS Rendering',d:'Handle React, Vue, Angular SPAs with headless browser.'},
+              {ico:'refresh-cw',t:'Scheduled Recrawl',d:'Keep knowledge bases fresh on custom schedules.'},
+              {ico:'shield',t:'Enterprise Security',d:'SOC 2 compliant, end-to-end encryption, SSO.'},
+              {ico:'activity',t:'Usage Analytics',d:'Monitor jobs, track quotas, view processing history.'},
+            ].map(f=>(
+              <div key={f.t} className="card ch">
+                <div style={{width:38,height:38,background:'var(--bg2)',border:'1px solid var(--border)',borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',marginBottom:13}}><I n={f.ico} s={17} c="var(--text2)"/></div>
+                <h3 style={{fontSize:13,marginBottom:6}}>{f.t}</h3>
+                <p style={{fontSize:12,color:'var(--text3)',lineHeight:1.6}}>{f.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Output formats */}
+      <div style={{padding:'80px 24px',background:'var(--bg)'}}>
+        <div className="sec" style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:56,alignItems:'center'}}>
+          <div>
+            <div className="stag">Output Formats</div>
+            <h2 style={{fontSize:'clamp(22px,3vw,34px)',marginBottom:12}}>Every format your AI stack needs</h2>
+            <p style={{fontSize:14,color:'var(--text3)',lineHeight:1.7,marginBottom:24}}>Clean, normalized outputs in every format used by modern AI pipelines.</p>
+            <div style={{display:'flex',flexDirection:'column',gap:8}}>
+              {[['JSON','Structured page data with full metadata','code','var(--brand)'],
+                ['JSONL','Line-delimited for bulk ingestion','list','var(--blue)'],
+                ['Markdown','Clean text for LLM context windows','file-text','var(--green)'],
+                ['Chunks','Pre-chunked with configurable overlap','layers','var(--yellow)'],
+                ['CSV','Metadata index for all pages','grid','var(--text2)']].map(([f,d,ico,c])=>(
+                <div key={f} className="fxc" style={{gap:12,padding:'10px 13px',background:'var(--surface)',border:'1px solid var(--border)',borderRadius:'var(--r)'}}>
+                  <div style={{width:28,height:28,background:`${c}18`,borderRadius:7,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><I n={ico} s={13} c={c}/></div>
+                  <div><div style={{fontSize:13,fontWeight:600,marginBottom:1}}>{f}</div><div style={{fontSize:12,color:'var(--text3)'}}>{d}</div></div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="code">
+            <span className="cc">// Extracted page output</span><br/>
+            {'{'}<br/>
+              <span className="ck">"page_id"</span>: <span className="cs">"pg_a8x2b"</span>,<br/>
+              <span className="ck">"url"</span>: <span className="cs">"https://docs.example.com/api"</span>,<br/>
+              <span className="ck">"title"</span>: <span className="cs">"API Reference"</span>,<br/>
+              <span className="ck">"chunks"</span>: [{'{'}<br/>
+                <span className="ck">"id"</span>: <span className="cs">"ch_001"</span>,<br/>
+                <span className="ck">"text"</span>: <span className="cs">"The API accepts..."</span>,<br/>
+                <span className="ck">"tokens"</span>: <span className="cn">512</span>,<br/>
+                <span className="ck">"embedding_ready"</span>: <span className="cn">true</span><br/>
+              {'}'}],<br/>
+              <span className="ck">"crawled_at"</span>: <span className="cs">"2026-03-09T14:22Z"</span><br/>{'}'}
+          </div>
+        </div>
+      </div>
+
+      {/* Security */}
+      <div style={{background:'var(--surface)',borderTop:'1px solid var(--border)',borderBottom:'1px solid var(--border)',padding:'60px 24px'}}>
+        <div className="sec" style={{textAlign:'center'}}>
+          <div className="stag">Security</div>
+          <h2 style={{fontSize:'clamp(20px,3vw,32px)',marginBottom:36}}>Enterprise-grade security built in</h2>
+          <div className="g4">
+            {[['shield','SOC 2 Type II','Third-party audited security'],['lock','AES-256 Encryption','At rest and in transit'],['key','SSO / SAML','Okta, Azure AD, Google'],['award','GDPR Compliant','Full EU data protection']].map(([ico,t,d])=>(
+              <div key={t} style={{textAlign:'center',padding:'18px 12px'}}>
+                <div style={{width:40,height:40,background:'var(--surface)',border:'1px solid var(--border)',borderRadius:11,display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 11px'}}><I n={ico} s={18} c="var(--text2)"/></div>
+                <h3 style={{fontSize:13,marginBottom:4}}>{t}</h3><p style={{fontSize:12,color:'var(--text3)'}}>{d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* FAQ */}
+      <div style={{background:'var(--bg)',padding:'72px 24px'}}>
+        <div style={{maxWidth:640,margin:'0 auto'}}>
+          <div style={{textAlign:'center',marginBottom:40}}>
+            <div className="stag">FAQ</div><h2 style={{fontSize:'clamp(22px,3vw,32px)'}}>Common questions</h2>
+          </div>
+          <div style={{display:'flex',flexDirection:'column',gap:7}}>
+            {faqs.map((faq,i)=>(
+              <div key={i} style={{background:'var(--surface)',border:'1px solid var(--border)',borderRadius:'var(--rlg)',overflow:'hidden'}}>
+                <button onClick={()=>setOpenFaq(openFaq===i?null:i)} style={{width:'100%',display:'flex',justifyContent:'space-between',alignItems:'center',padding:'15px 18px',background:'none',border:'none',cursor:'pointer',fontFamily:'var(--ff)',textAlign:'left'}}>
+                  <span style={{fontSize:14,fontWeight:600}}>{faq.q}</span><I n={openFaq===i?'minus':'plus'} s={14} c="var(--text3)"/>
+                </button>
+                {openFaq===i&&<div style={{padding:'0 18px 14px',fontSize:14,color:'var(--text3)',lineHeight:1.7}}>{faq.a}</div>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div style={{background:'var(--accent)',padding:'80px 24px',textAlign:'center',position:'relative',overflow:'hidden'}}>
+        <div style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',width:500,height:500,borderRadius:'50%',background:'rgba(255,255,255,.025)',pointerEvents:'none'}}/>
+        <div style={{position:'relative',zIndex:1,maxWidth:560,margin:'0 auto'}}>
+          <h2 style={{fontSize:'clamp(24px,4vw,42px)',color:'white',fontFamily:'var(--ffd)',marginBottom:12}}>Ready to build your AI knowledge base?</h2>
+          <p style={{fontSize:16,color:'rgba(255,255,255,.5)',marginBottom:34,lineHeight:1.65}}>Join 40,000+ AI teams using DataForge for chatbots, RAG, and enterprise search.</p>
+          <div className="fxc" style={{justifyContent:'center',gap:11,flexWrap:'wrap'}}>
+            <button className="btn bxl" style={{background:'white',color:'var(--accent)'}} onClick={()=>setPage('signup')}>Start free trial <I n="arrow-right" s={15} c="var(--accent)"/></button>
+            <button className="btn bxl" style={{background:'rgba(255,255,255,.1)',color:'white',border:'1px solid rgba(255,255,255,.2)'}} onClick={()=>setPage('pricing')}>View pricing</button>
+          </div>
+          <div style={{marginTop:16,fontSize:12,color:'rgba(255,255,255,.3)'}}>No credit card required . 500 free pages . Cancel anytime</div>
+        </div>
+      </div>
+      <Footer setPage={setPage}/>
+    </div>
+  );
+};
+
+// AUTH PAGE
+const AuthPage=({mode,setPage,setLoggedIn})=>{
+  const [form,setForm]=useState({name:'',email:'',password:'',confirm:'',terms:false});
+  const [errs,setErrs]=useState({});
+  const [loading,setLoading]=useState(false);
+  const [showP,setShowP]=useState(false);
+  const [done,setDone]=useState(false);
+  const toast=useToast();
+  const validate=()=>{
+    const e={};
+    if(mode==='signup'&&!form.name)e.name='Required';
+    if(!form.email||!/\S+@\S+\.\S+/.test(form.email))e.email='Valid email required';
+    if(mode!=='forgot'&&!form.password)e.password='Required';
+    if(mode==='signup'&&form.password.length<8)e.password='Min 8 characters';
+    if((mode==='signup'||mode==='reset')&&form.password!==form.confirm)e.confirm='Passwords do not match';
+    if(mode==='signup'&&!form.terms)e.terms='Please accept terms';
+    return e;
+  };
+  const submit=()=>{
+    const e=validate();setErrs(e);
+    if(Object.keys(e).length)return;
+    setLoading(true);
+    setTimeout(()=>{
+      setLoading(false);
+      if(mode==='forgot'||mode==='reset'){setDone(true);return;}
+      toast(mode==='signup'?'Account created! Choose your plan.':'Welcome back! Choose your plan.','success');
+      setPage('checkout');
+    },1400);
+  };
+  if(done)return(
+    <div style={{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',background:'var(--bg)',padding:20}}>
+      <div style={{textAlign:'center',maxWidth:360}}>
+        <div style={{width:60,height:60,background:'var(--green-bg)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 20px'}}><I n={mode==='forgot'?'mail':'check-circle'} s={26} c="var(--green)"/></div>
+        <h2 style={{fontSize:22,fontFamily:'var(--ffd)',marginBottom:7}}>{mode==='forgot'?'Check your email':'Password updated'}</h2>
+        <p style={{fontSize:14,color:'var(--text3)',marginBottom:20}}>{mode==='forgot'?`Reset link sent to ${form.email}`:'Your password has been reset.'}</p>
+        <button className="btn bp" onClick={()=>setPage('login')}>{mode==='forgot'?'Back to login':'Sign in'}</button>
+      </div>
+    </div>
+  );
+  const titles={login:'Welcome back',signup:'Start your free trial',forgot:'Reset password',reset:'Set new password'};
+  return(
+    <div style={{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',background:'var(--bg)',padding:'36px 20px'}}>
+      <div style={{width:'100%',maxWidth:400}}>
+        <button onClick={()=>setPage('home')} style={{background:'none',border:'none',cursor:'pointer',marginBottom:28,padding:0}}><Logo/></button>
+        <h1 style={{fontSize:24,fontFamily:'var(--ffd)',fontWeight:800,marginBottom:4}}>{titles[mode]}</h1>
+        <p style={{fontSize:14,color:'var(--text3)',marginBottom:24}}>
+          {mode==='login'&&<>No account? <button onClick={()=>setPage('signup')} style={{color:'var(--brand)',fontWeight:600,border:'none',background:'none',cursor:'pointer',fontFamily:'var(--ff)',fontSize:'inherit'}}>Sign up</button></>}
+          {mode==='signup'&&<>Have an account? <button onClick={()=>setPage('login')} style={{color:'var(--brand)',fontWeight:600,border:'none',background:'none',cursor:'pointer',fontFamily:'var(--ff)',fontSize:'inherit'}}>Log in</button></>}
+          {mode==='forgot'&&"Enter your email and we'll send a reset link."}
+          {mode==='reset'&&"Choose a strong new password for your account."}
+        </p>
+        {(mode==='login'||mode==='signup')&&(
+          <>
+            <div className="fxc" style={{gap:9,marginBottom:18}}>
+              {[['Google','#EA4335'],['Microsoft','#0078D4']].map(([p,c])=>(
+                <button key={p} className="btn bs bfw" style={{flex:1,justifyContent:'center'}} onClick={()=>{toast(`Signed in with ${p}! Choose your plan.`,'success');setPage('checkout');}}>
+                  <span style={{fontWeight:800,color:c,fontSize:14}}>{p[0]}</span> {p}
+                </button>
+              ))}
+            </div>
+            <div className="fxc" style={{gap:10,marginBottom:18}}>
+              <div style={{flex:1,height:1,background:'var(--border)'}}/>
+              <span style={{fontSize:12,color:'var(--text4)',fontWeight:500}}>OR</span>
+              <div style={{flex:1,height:1,background:'var(--border)'}}/>
+            </div>
+          </>
+        )}
+        <div style={{display:'flex',flexDirection:'column',gap:13}}>
+          {mode==='signup'&&(
+            <div className="fg"><label className="fl">Full name</label>
+              <input className={`fi${errs.name?' fie':''}`} placeholder="Alex Chen" value={form.name} onChange={e=>setForm({...form,name:e.target.value})}/>
+              {errs.name&&<span className="ferr">{errs.name}</span>}
+            </div>
+          )}
+          <div className="fg"><label className="fl">Work email</label>
+            <input className={`fi${errs.email?' fie':''}`} type="email" placeholder="you@company.com" value={form.email} onChange={e=>setForm({...form,email:e.target.value})}/>
+            {errs.email&&<span className="ferr">{errs.email}</span>}
+          </div>
+          {mode!=='forgot'&&(
+            <div className="fg">
+              <div className="fxb"><label className="fl">{mode==='reset'?'New password':'Password'}</label>
+                {mode==='login'&&<button onClick={()=>setPage('forgot')} style={{fontSize:12,color:'var(--brand)',border:'none',background:'none',cursor:'pointer',fontFamily:'var(--ff)'}}>Forgot?</button>}
+              </div>
+              <div className="rel">
+                <input className={`fi${errs.password?' fie':''}`} type={showP?'text':'password'} placeholder="Min 8 characters" value={form.password} onChange={e=>setForm({...form,password:e.target.value})} style={{paddingRight:38}}/>
+                <button onClick={()=>setShowP(!showP)} style={{position:'absolute',right:10,top:'50%',transform:'translateY(-50%)',background:'none',border:'none',cursor:'pointer',color:'var(--text3)'}}><I n={showP?'eye-off':'eye'} s={14}/></button>
+              </div>
+              {errs.password&&<span className="ferr">{errs.password}</span>}
+            </div>
+          )}
+          {(mode==='signup'||mode==='reset')&&(
+            <div className="fg"><label className="fl">Confirm password</label>
+              <input className={`fi${errs.confirm?' fie':''}`} type="password" placeholder="Re-enter password" value={form.confirm} onChange={e=>setForm({...form,confirm:e.target.value})}/>
+              {errs.confirm&&<span className="ferr">{errs.confirm}</span>}
+            </div>
+          )}
+          {mode==='signup'&&(
+            <div>
+              <div className="fxc" style={{gap:8,alignItems:'flex-start'}}>
+                <input type="checkbox" id="terms" checked={form.terms} onChange={e=>setForm({...form,terms:e.target.checked})} style={{marginTop:3,accentColor:'var(--accent)',flexShrink:0}}/>
+                <label htmlFor="terms" style={{fontSize:13,color:'var(--text3)',cursor:'pointer',lineHeight:1.5}}>
+                  I agree to the <button onClick={()=>setPage('terms')} style={{color:'var(--brand)',fontWeight:600,border:'none',background:'none',cursor:'pointer',fontFamily:'var(--ff)',fontSize:13}}>Terms</button> and <button onClick={()=>setPage('privacy')} style={{color:'var(--brand)',fontWeight:600,border:'none',background:'none',cursor:'pointer',fontFamily:'var(--ff)',fontSize:13}}>Privacy Policy</button>
+                </label>
+              </div>
+              {errs.terms&&<div className="ferr mt2">{errs.terms}</div>}
+            </div>
+          )}
+          <button className="btn bp blg bfw" style={{justifyContent:'center',marginTop:3}} onClick={submit} disabled={loading}>
+            {loading?<><Spin s={14}/>Processing...</>:mode==='login'?'Sign in':mode==='signup'?'Create account - choose plan':mode==='forgot'?'Send reset link':'Update password'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// PRICING PAGE
+const PricingPage=({setPage})=>{
+  const [annual,setAnnual]=useState(false);
+  const [openFaq,setOpenFaq]=useState(null);
+  const plans=[
+    {id:'s',name:'Starter',mo:49,yr:39,pages:'5,000',desc:'For individuals exploring AI pipelines.',
+     features:['5,000 pages/month','1 active project','JSON & Markdown exports','Email support'],cta:'Start free trial'},
+    {id:'g',name:'Growth',mo:149,yr:119,pages:'50,000',popular:true,desc:'For AI teams needing scale.',
+     features:['50,000 pages/month','10 active projects','All output formats','JS rendering','Vector DB delivery','Priority support','Analytics'],cta:'Start free trial'},
+    {id:'e',name:'Enterprise',mo:null,yr:null,pages:'Custom',desc:'For large organizations.',
+     features:['Custom page quotas','Unlimited projects','SSO / SAML','Private deployment','Dedicated support','Audit logs','Custom SLA'],cta:'Talk to sales'},
+  ];
+  const faqs=[
+    {q:'What counts as a page?',a:'One unique URL successfully crawled and extracted. Redirects do not count.'},
+    {q:'Can I switch plans mid-cycle?',a:'Upgrades apply immediately (prorated). Downgrades take effect next billing cycle.'},
+    {q:'Is there a free trial?',a:'Every plan starts with a 14-day free trial and 500 bonus pages. No credit card required.'},
+    {q:'Do unused pages roll over?',a:'Page quotas reset monthly and do not roll over.'},
+  ];
+  return(
+    <div className="ai">
+      <div style={{padding:'72px 24px 48px',background:'var(--bg)',textAlign:'center',borderBottom:'1px solid var(--border)'}}>
+        <div className="stag">Pricing</div>
+        <h1 style={{fontSize:'clamp(28px,5vw,48px)',fontFamily:'var(--ffd)',fontWeight:800,marginBottom:13,letterSpacing:'-.02em'}}>Simple, transparent pricing</h1>
+        <p style={{fontSize:16,color:'var(--text3)',marginBottom:26}}>Start free. Scale when you need to.</p>
+        <div className="fxc" style={{justifyContent:'center',gap:9,background:'var(--surface)',border:'1px solid var(--border)',borderRadius:100,padding:'4px 4px 4px 13px',display:'inline-flex',boxShadow:'var(--sh)'}}>
+          <span style={{fontSize:13,fontWeight:500,color:!annual?'var(--text)':'var(--text3)'}}>Monthly</span>
+          <label className="tog"><input type="checkbox" checked={annual} onChange={e=>setAnnual(e.target.checked)}/><span className="tsl"/></label>
+          <span style={{fontSize:13,fontWeight:500,color:annual?'var(--text)':'var(--text3)'}}>Annual</span>
+          {annual&&<span className="badge bgg" style={{marginRight:3}}>Save 20%</span>}
+        </div>
+      </div>
+      <div style={{maxWidth:1000,margin:'0 auto',padding:'48px 24px'}}>
+        <div className="g3" style={{marginBottom:52,alignItems:'start'}}>
+          {plans.map(plan=>(
+            <div key={plan.id} className={`pcard${plan.popular?' feat':''}`} style={{position:'relative'}}>
+              {plan.popular&&<div style={{position:'absolute',top:-11,left:'50%',transform:'translateX(-50%)',background:'var(--brand)',color:'white',fontSize:11,fontWeight:700,padding:'3px 12px',borderRadius:100,textTransform:'uppercase',letterSpacing:'.04em'}}>Most Popular</div>}
+              <div style={{marginBottom:16}}>
+                <div style={{fontSize:11,fontWeight:600,textTransform:'uppercase',letterSpacing:'.06em',marginBottom:6,opacity:.55}}>{plan.name}</div>
+                <div className="fxc" style={{gap:4,marginBottom:7}}>
+                  {plan.mo?(<><span style={{fontFamily:'var(--ffd)',fontSize:42,fontWeight:800}}>${annual?plan.yr:plan.mo}</span><span style={{fontSize:13,opacity:.5}}>/mo</span></>):(<span style={{fontFamily:'var(--ffd)',fontSize:32,fontWeight:800}}>Custom</span>)}
+                </div>
+                <div style={{fontSize:13,opacity:.5,marginBottom:8}}>{plan.pages} pages/month</div>
+                <p style={{fontSize:13,lineHeight:1.6,opacity:.6}}>{plan.desc}</p>
+              </div>
+              <button className={`btn bfw mb4 ${plan.popular?'bs':'bp'}`} style={{justifyContent:'center'}} onClick={()=>plan.mo?setPage('signup'):setPage('contact')}>{plan.cta}</button>
+              <ul style={{listStyle:'none',display:'flex',flexDirection:'column',gap:8}}>
+                {plan.features.map(f=>(
+                  <li key={f} className="fxc" style={{gap:8,fontSize:13}}>
+                    <I n="check" s={13} c={plan.popular?'rgba(255,255,255,.6)':'var(--green)'}/>{f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div style={{display:'flex',flexDirection:'column',gap:7,maxWidth:580,margin:'0 auto'}}>
+          <h2 style={{fontSize:18,marginBottom:12}}>Pricing FAQs</h2>
+          {faqs.map((faq,i)=>(
+            <div key={i} style={{background:'var(--surface)',border:'1px solid var(--border)',borderRadius:'var(--rlg)',overflow:'hidden'}}>
+              <button onClick={()=>setOpenFaq(openFaq===i?null:i)} style={{width:'100%',display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 18px',background:'none',border:'none',cursor:'pointer',fontFamily:'var(--ff)',textAlign:'left'}}>
+                <span style={{fontSize:14,fontWeight:600}}>{faq.q}</span><I n={openFaq===i?'minus':'plus'} s={13} c="var(--text3)"/>
+              </button>
+              {openFaq===i&&<div style={{padding:'0 18px 14px',fontSize:14,color:'var(--text3)',lineHeight:1.7}}>{faq.a}</div>}
+            </div>
+          ))}
+        </div>
+      </div>
+      <Footer setPage={setPage}/>
+    </div>
+  );
+};
+
+// CONTACT PAGE
+const ContactPage=({setPage})=>{
+  const [form,setForm]=useState({name:'',email:'',company:'',message:''});
+  const [loading,setLoading]=useState(false);
+  const [sent,setSent]=useState(false);
+  const toast=useToast();
+  if(sent)return(
+    <div style={{minHeight:'60vh',display:'flex',alignItems:'center',justifyContent:'center',padding:40}}>
+      <div style={{textAlign:'center',maxWidth:380}}>
+        <div style={{width:64,height:64,background:'var(--green-bg)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 20px'}}><I n="check-circle" s={28} c="var(--green)"/></div>
+        <h2 style={{fontSize:22,fontFamily:'var(--ffd)',marginBottom:8}}>Message received!</h2>
+        <p style={{fontSize:14,color:'var(--text3)',lineHeight:1.6}}>Our team will respond within 1 business day.</p>
+      </div>
+    </div>
+  );
+  return(
+    <div className="ai" style={{maxWidth:720,margin:'0 auto',padding:'64px 24px'}}>
+      <div style={{textAlign:'center',marginBottom:40}}>
+        <div className="stag">Contact</div>
+        <h1 style={{fontSize:'clamp(24px,4vw,38px)',fontFamily:'var(--ffd)',fontWeight:800,marginBottom:10}}>Talk to our team</h1>
+        <p style={{fontSize:15,color:'var(--text3)'}}>Questions about enterprise plans or deployment requirements?</p>
+      </div>
+      <div className="g2" style={{gap:48,alignItems:'start'}}>
+        <div style={{display:'flex',flexDirection:'column',gap:13}}>
+          <div className="fg"><label className="fl">Full name</label><input className="fi" placeholder="Alex Chen" value={form.name} onChange={e=>setForm({...form,name:e.target.value})}/></div>
+          <div className="fg"><label className="fl">Work email</label><input className="fi" type="email" placeholder="you@company.com" value={form.email} onChange={e=>setForm({...form,email:e.target.value})}/></div>
+          <div className="fg"><label className="fl">Company</label><input className="fi" placeholder="Acme Corp" value={form.company} onChange={e=>setForm({...form,company:e.target.value})}/></div>
+          <div className="fg"><label className="fl">Message</label><textarea className="fta" placeholder="Tell us about your use case..." value={form.message} onChange={e=>setForm({...form,message:e.target.value})}/></div>
+          <button className="btn bp blg" onClick={()=>{setLoading(true);setTimeout(()=>{setLoading(false);setSent(true);toast('Message sent!','success');},1400);}} disabled={loading}>
+            {loading?<><Spin s={14}/>Sending...</>:<>Send message <I n="send" s={14} c="white"/></>}
+          </button>
+        </div>
+        <div style={{display:'flex',flexDirection:'column',gap:16,paddingTop:6}}>
+          {[['calendar','Contact sales','Questions about plans and rollout'],['mail','Email sales','enterprise@dataforgeai.com'],['life-buoy','Support','support@dataforgeai.com'],['clock','Response time','Under 24 hours']].map(([ico,t,d])=>(
+            <div key={t} className="fxc" style={{gap:12,alignItems:'flex-start'}}>
+              <div style={{width:36,height:36,background:'var(--bg2)',border:'1px solid var(--border)',borderRadius:9,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><I n={ico} s={15} c="var(--text2)"/></div>
+              <div><div style={{fontSize:13,fontWeight:600,marginBottom:1}}>{t}</div><div style={{fontSize:12,color:'var(--text3)'}}>{d}</div></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// SIDEBAR
+const Sidebar=({page,setPage,setLoggedIn})=>{
+  const [umOpen,setUmOpen]=useState(false);
+  const nav=[
+    {p:'dashboard',l:'Dashboard',ico:'home'},{p:'projects',l:'Projects',ico:'folder'},
+    {p:'analytics',l:'Analytics',ico:'bar-chart'},{p:'billing',l:'Billing',ico:'credit-card'},
+    {p:'team',l:'Team',ico:'users'},{p:'docs',l:'Docs',ico:'book'},{p:'support',l:'Support',ico:'life-buoy'},
+  ];
+  return(
+    <div className="sidebar">
+      <div className="sbh">
+        <button onClick={()=>setPage('home')} style={{background:'none',border:'none',cursor:'pointer',padding:0}}><Logo/></button>
+      </div>
+      <div className="sbn">
+        <div style={{fontSize:10,fontWeight:700,textTransform:'uppercase',letterSpacing:'.07em',color:'var(--text4)',padding:'6px 9px 4px',marginTop:4}}>Main</div>
+        {nav.slice(0,5).map(item=>(
+          <button key={item.p} className={`ntab${page===item.p?' act':''}`} onClick={()=>setPage(item.p)}>
+            <I n={item.ico} s={14} c={page===item.p?'var(--text)':'var(--text3)'}/>{item.l}
+          </button>
+        ))}
+        <div style={{fontSize:10,fontWeight:700,textTransform:'uppercase',letterSpacing:'.07em',color:'var(--text4)',padding:'12px 9px 4px'}}>Help</div>
+        {nav.slice(5).map(item=>(
+          <button key={item.p} className={`ntab${page===item.p?' act':''}`} onClick={()=>setPage(item.p)}>
+            <I n={item.ico} s={14} c={page===item.p?'var(--text)':'var(--text3)'}/>{item.l}
+          </button>
+        ))}
+      </div>
+      <div className="sbf">
+        <button className={`ntab${page==='settings'?' act':''}`} onClick={()=>setPage('settings')}><I n="settings" s={14} c="var(--text3)"/>Settings</button>
+        <div className="rel" style={{marginTop:5}}>
+          <button onClick={()=>setUmOpen(!umOpen)} style={{width:'100%',display:'flex',alignItems:'center',gap:8,padding:'6px 9px',borderRadius:'var(--r)',background:umOpen?'var(--bg2)':'transparent',border:'none',cursor:'pointer',transition:'background .14s'}}>
+            <div className="av" style={{cursor:'default'}}>AC</div>
+            <div style={{flex:1,minWidth:0,textAlign:'left'}}>
+              <div style={{fontSize:12,fontWeight:600,color:'var(--text)',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>Alex Chen</div>
+              <div style={{fontSize:10,color:'var(--text4)'}}>Growth Plan</div>
+            </div>
+            <I n="more-horizontal" s={12} c="var(--text3)"/>
+          </button>
+          {umOpen&&(
+            <div className="dd" style={{bottom:'calc(100% + 4px)',top:'auto',left:0,right:0}}>
+              <div style={{padding:'10px 13px 6px',borderBottom:'1px solid var(--border)'}}>
+                <div style={{fontSize:12,fontWeight:600}}>Alex Chen</div>
+                <div style={{fontSize:11,color:'var(--text3)'}}>alex@acme.io</div>
+              </div>
+              <button className="ddi" onClick={()=>{setPage('settings');setUmOpen(false);}}><I n="user" s={13}/>Account settings</button>
+              <button className="ddi" onClick={()=>{setPage('billing');setUmOpen(false);}}><I n="credit-card" s={13}/>Billing</button>
+              <div className="ddsep"/>
+              <button className="ddi ddng" onClick={()=>{setLoggedIn(false);setUmOpen(false);setPage('home');}}><I n="log-out" s={13} c="var(--red)"/>Sign out</button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// TOP BAR
+const TopBar=({title,sub,actions,setPage,back})=>{
+  const [nOpen,setNOpen]=useState(false);
+  const ic={success:'check-circle',error:'alert-circle',warning:'alert-triangle',info:'info'};
+  const cc={success:'var(--green)',error:'var(--red)',warning:'var(--yellow)',info:'var(--blue)'};
+  return(
+    <div className="topbar">
+      <div style={{display:'flex',alignItems:'center',gap:10}}>
+        {back&&<button onClick={()=>setPage(back)} style={{background:'none',border:'1px solid var(--border)',borderRadius:8,padding:'5px 8px',cursor:'pointer',display:'flex',alignItems:'center',gap:4,color:'var(--text3)',fontSize:12,fontWeight:500,flexShrink:0}}><I n="arrow-left" s={12} c="var(--text3)"/>Back</button>}
+        <div>
+          <div style={{fontSize:14,fontWeight:700,fontFamily:'var(--ffd)',lineHeight:1.2}}>{title}</div>
+          {sub&&<div style={{fontSize:11,color:'var(--text3)'}}>{sub}</div>}
+        </div>
+      </div>
+      <div className="fxc" style={{gap:8}}>
+        {actions}
+        <div className="rel">
+          <button onClick={()=>setNOpen(!nOpen)} style={{width:32,height:32,borderRadius:'var(--r)',background:nOpen?'var(--bg2)':'transparent',border:'1px solid transparent',display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer',position:'relative',transition:'all .14s'}}>
+            <I n="bell" s={15} c="var(--text2)"/>
+            <span style={{position:'absolute',top:6,right:6,width:5,height:5,background:'var(--red)',borderRadius:'50%',border:'1.5px solid var(--surface)'}}/>
+          </button>
+          {nOpen&&(
+            <div className="dd" style={{width:330,right:0,top:'calc(100% + 7px)'}}>
+              <div style={{padding:'12px 14px',borderBottom:'1px solid var(--border)',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                <span style={{fontWeight:700,fontSize:13}}>Notifications</span>
+                <button onClick={()=>{setPage('notifications');setNOpen(false);}} style={{fontSize:12,color:'var(--brand)',border:'none',background:'none',cursor:'pointer'}}>View all</button>
+              </div>
+              {NOTIFS.map(n=>(
+                <div key={n.id} className="ddi" style={{alignItems:'flex-start',gap:8}}>
+                  <I n={ic[n.type]} s={13} c={cc[n.type]} cls="mt2"/>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{fontSize:12,fontWeight:600,color:'var(--text)'}}>{n.title}</div>
+                    <div style={{fontSize:11,color:'var(--text3)',lineHeight:1.5}}>{n.body}</div>
+                    <div style={{fontSize:10,color:'var(--text4)',marginTop:1}}>{n.time}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// DASHBOARD
+const Dashboard=({setPage})=>{
+  const [loading,setLoading]=useState(true);
+  useEffect(()=>{const t=setTimeout(()=>setLoading(false),700);return()=>clearTimeout(t);},[]);
+  if(loading)return(<div><TopBar title="Dashboard" sub="Loading..." setPage={setPage}/><div className="pc"><div className="g4 mb4">{[0,1,2,3].map(i=><SkCard key={i}/>)}</div><div className="g2">{[0,1].map(i=><SkCard key={i}/>)}</div></div></div>);
+  return(
+    <div>
+      <TopBar title="Dashboard" sub="Welcome back, Alex" setPage={setPage}
+        actions={<button className="btn bp bsm" onClick={()=>setPage('create-project')}><I n="plus" s={13} c="white"/>New project</button>}
+      />
+      <div className="pc ai">
+        <div className="alert aii mb4" style={{marginBottom:16}}>
+          <I n="info" s={16} c="var(--blue)"/>
+          <div style={{flex:1}}>47,200 of 50,000 pages used this month - approaching your limit.
+            <button style={{marginLeft:6,fontWeight:700,color:'var(--blue)',border:'none',background:'none',cursor:'pointer',fontSize:'inherit'}} onClick={()=>setPage('billing')}>Upgrade -></button>
+          </div>
+        </div>
+        <div className="g4 mb4">
+          {[['Total projects','5','+2 this month','folder'],['Pages processed','15,812','+3,400 this week','file-text'],['Success rate','98.4%','+0.3% vs last mo','check-circle'],['Vector syncs','24','3 pending','database']].map(([l,v,ch,ico])=>(
+            <div key={l} className="mc">
+              <div className="fxb"><span style={{fontSize:11,fontWeight:600,color:'var(--text3)',textTransform:'uppercase',letterSpacing:'.05em'}}>{l}</span><div style={{width:28,height:28,background:'var(--bg2)',borderRadius:7,display:'flex',alignItems:'center',justifyContent:'center'}}><I n={ico} s={13} c="var(--text3)"/></div></div>
+              <div className="mv">{v}</div>
+              <div style={{fontSize:11,color:'var(--text3)'}}>{ch}</div>
+            </div>
+          ))}
+        </div>
+        <div className="g2 mb4">
+          <div className="card" style={{padding:0}}>
+            <div style={{padding:'15px 18px',borderBottom:'1px solid var(--border)',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+              <h3 style={{fontSize:13}}>Recent projects</h3>
+              <button className="btn bg2btn bsm" onClick={()=>setPage('projects')}>View all</button>
+            </div>
+            {PROJECTS.slice(0,4).map(p=>(
+              <div key={p.id} className="fxc" style={{gap:11,padding:'9px 18px',cursor:'pointer',transition:'background .1s'}}
+                onMouseEnter={e=>e.currentTarget.style.background='var(--bg)'}
+                onMouseLeave={e=>e.currentTarget.style.background=''}
+                onClick={()=>setPage('project-detail')}>
+                <div style={{width:30,height:30,borderRadius:7,background:'var(--bg2)',border:'1px solid var(--border)',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><I n="globe" s={13} c="var(--text3)"/></div>
+                <div style={{flex:1,minWidth:0}}><div style={{fontSize:13,fontWeight:600,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{p.name}</div><div style={{fontSize:11,color:'var(--text3)'}}>{p.domain}</div></div>
+                <SBadge status={p.status}/>
+              </div>
+            ))}
+          </div>
+          <div className="card" style={{padding:0}}>
+            <div style={{padding:'15px 18px',borderBottom:'1px solid var(--border)'}}><h3 style={{fontSize:13}}>Recent activity</h3></div>
+            {NOTIFS.map(n=>(
+              <div key={n.id} className="fxc" style={{gap:10,padding:'9px 18px',alignItems:'flex-start'}}>
+                <div style={{width:24,height:24,borderRadius:'50%',background:n.type==='success'?'var(--green-bg)':n.type==='error'?'var(--red-bg)':n.type==='warning'?'var(--yellow-bg)':'var(--blue-bg)',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,marginTop:1}}>
+                  <I n={n.type==='success'?'check-circle':n.type==='error'?'alert-circle':n.type==='warning'?'alert-triangle':'info'} s={11} c={n.type==='success'?'var(--green)':n.type==='error'?'var(--red)':n.type==='warning'?'var(--yellow)':'var(--blue)'}/>
+                </div>
+                <div style={{flex:1}}><div style={{fontSize:12,fontWeight:600}}>{n.title}</div><div style={{fontSize:11,color:'var(--text3)',lineHeight:1.5}}>{n.body}</div><div style={{fontSize:10,color:'var(--text4)',marginTop:1}}>{n.time}</div></div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="card" style={{padding:'18px 20px'}}>
+          <div className="fxb mb3"><h3 style={{fontSize:13}}>Monthly usage</h3><span style={{fontSize:12,color:'var(--text3)'}}>47,200 / 50,000 pages</span></div>
+          <div className="pb" style={{height:7,marginBottom:7}}><div className="pf" style={{width:'94.4%',background:'var(--yellow)'}}/></div>
+          <div className="fxb" style={{fontSize:11,color:'var(--text4)'}}><span>Resets April 1, 2026</span><span style={{color:'var(--yellow)',fontWeight:600}}>94.4% used</span></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// PROJECTS PAGE
+const ProjectsPage=({setPage})=>{
+  const [search,setSearch]=useState('');
+  const [filter,setFilter]=useState('all');
+  const filtered=PROJECTS.filter(p=>(filter==='all'||p.status===filter)&&(p.name.toLowerCase().includes(search.toLowerCase())||p.domain.toLowerCase().includes(search.toLowerCase())));
+  return(
+    <div>
+      <TopBar title="Projects" sub={`${PROJECTS.length} total`} setPage={setPage}
+        actions={<button className="btn bp bsm" onClick={()=>setPage('create-project')}><I n="plus" s={13} c="white"/>New project</button>}
+      />
+      <div className="pc ai">
+        <div className="fxc" style={{gap:9,marginBottom:16,flexWrap:'wrap'}}>
+          <div className="rel" style={{flex:1,minWidth:180}}>
+            <div style={{position:'absolute',left:10,top:'50%',transform:'translateY(-50%)',pointerEvents:'none'}}><I n="search" s={13} c="var(--text3)"/></div>
+            <input className="fi" style={{paddingLeft:32}} placeholder="Search projects..." value={search} onChange={e=>setSearch(e.target.value)}/>
+          </div>
+          <div className="tabs">
+            {[['all','All'],['active','Active'],['processing','Processing'],['failed','Failed']].map(([v,l])=>(
+              <button key={v} className={`tab${filter===v?' act':''}`} onClick={()=>setFilter(v)}>{l}</button>
+            ))}
+          </div>
+        </div>
+        {filtered.length===0?(
+          <div className="empty">
+            <div className="ei"><I n="folder" s={24} c="var(--text3)"/></div>
+            <h3>No projects found</h3><p>Create your first project to start extracting data.</p>
+            <button className="btn bp mt4" onClick={()=>setPage('create-project')}><I n="plus" s={13} c="white"/>New project</button>
+          </div>
+        ):(
+          <div className="dtw">
+            <table className="dt">
+              <thead><tr><th>Project</th><th>Status</th><th>Pages</th><th>Last run</th><th>Created</th><th></th></tr></thead>
+              <tbody>
+                {filtered.map(p=>(
+                  <tr key={p.id} style={{cursor:'pointer'}} onClick={()=>setPage('project-detail')}>
+                    <td><div className="fxc" style={{gap:10}}>
+                      <div style={{width:30,height:30,background:'var(--bg2)',border:'1px solid var(--border)',borderRadius:7,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><I n="globe" s={12} c="var(--text3)"/></div>
+                      <div><div style={{fontWeight:600,fontSize:13}}>{p.name}</div><div style={{fontSize:11,color:'var(--text3)',fontFamily:'var(--ffm)'}}>{p.domain}</div></div>
+                    </div></td>
+                    <td><SBadge status={p.status}/></td>
+                    <td style={{fontFamily:'var(--ffm)',fontSize:13}}>{p.pages.toLocaleString()}</td>
+                    <td style={{fontSize:12,color:'var(--text3)'}}>{p.lastRun}</td>
+                    <td style={{fontSize:12,color:'var(--text3)'}}>{p.created}</td>
+                    <td onClick={e=>e.stopPropagation()}><div className="fxc" style={{gap:3}}>
+                      <button className="btn bg2btn bsm"><I n="play" s={11}/></button>
+                      <button className="btn bg2btn bsm"><I n="more-horizontal" s={11}/></button>
+                    </div></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// CREATE PROJECT WIZARD
+const CreateProject=({setPage})=>{
+  const [step,setStep]=useState(1);
+  const [form,setForm]=useState({name:'',url:'',depth:3,maxPages:1000,jsRender:false,outputs:['json','markdown'],dest:'download'});
+  const [launching,setLaunching]=useState(false);
+  const [launched,setLaunched]=useState(false);
+  const toast=useToast();
+  const up=(k,v)=>setForm(f=>({...f,[k]:v}));
+  const toggleOut=fmt=>up('outputs',form.outputs.includes(fmt)?form.outputs.filter(x=>x!==fmt):[...form.outputs,fmt]);
+  const steps=['Project','Crawl','Output','Destination','Review'];
+  if(launched)return(
+    <div style={{minHeight:'60vh',display:'flex',alignItems:'center',justifyContent:'center',padding:40,flexDirection:'column',textAlign:'center'}}>
+      <div style={{width:64,height:64,background:'var(--green-bg)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 20px',animation:'float 2s ease-in-out infinite'}}><I n="check-circle" s={28} c="var(--green)"/></div>
+      <h2 style={{fontSize:22,fontFamily:'var(--ffd)',marginBottom:8}}>Crawl started!</h2>
+      <p style={{fontSize:14,color:'var(--text3)',maxWidth:340,marginBottom:24,lineHeight:1.65}}><strong>{form.name||'New project'}</strong> is now crawling. We'll notify you when complete.</p>
+      <div className="fxc" style={{gap:10}}>
+        <button className="btn bp" onClick={()=>setPage('project-detail')}>View project</button>
+        <button className="btn bs" onClick={()=>setPage('projects')}>All projects</button>
+      </div>
+    </div>
+  );
+  return(
+    <div>
+      <TopBar title="Create project" sub="New extraction pipeline" setPage={setPage} back="projects"/>
+      <div className="pc ai">
+        <div style={{maxWidth:600,margin:'0 auto'}}>
+          {/* Stepper */}
+          <div className="fxc" style={{marginBottom:28}}>
+            {steps.map((l,i)=>(
+              <React.Fragment key={l}>
+                <div className="fxc" style={{flexDirection:'column',gap:4}}>
+                  <div className={`wdot ${i+1<step?'wdd':i+1===step?'wda':'wdp'}`}>{i+1<step?<I n="check" s={12} c="white"/>:i+1}</div>
+                  <span style={{fontSize:9,color:i+1<=step?'var(--text2)':'var(--text4)',fontWeight:500,whiteSpace:'nowrap'}}>{l}</span>
+                </div>
+                {i<steps.length-1&&<div className={`wline${i+1<step?' wldone':''}`} style={{flex:1,marginBottom:14}}/>}
+              </React.Fragment>
+            ))}
+          </div>
+          <div style={{fontSize:11,fontWeight:600,textTransform:'uppercase',letterSpacing:'.07em',color:'var(--text3)',marginBottom:16}}>Step {step} of 5 - {steps[step-1]}</div>
+
+          {step===1&&(
+            <div style={{display:'flex',flexDirection:'column',gap:16}}>
+              <h2 style={{fontSize:20,fontFamily:'var(--ffd)'}}>Name your project</h2>
+              <div className="fg"><label className="fl">Project name</label><input className="fi" placeholder="e.g. Acme Docs" value={form.name} onChange={e=>up('name',e.target.value)}/></div>
+              <div className="fg"><label className="fl">Website URL</label><input className="fi" placeholder="https://docs.example.com" value={form.url} onChange={e=>up('url',e.target.value)} style={{fontFamily:'var(--ffm)',fontSize:13}}/><span style={{fontSize:12,color:'var(--text4)'}}>Root URL to begin crawling from.</span></div>
+            </div>
+          )}
+          {step===2&&(
+            <div style={{display:'flex',flexDirection:'column',gap:15}}>
+              <h2 style={{fontSize:20,fontFamily:'var(--ffd)'}}>Configure crawl</h2>
+              <div className="g2">
+                <div className="fg"><label className="fl">Crawl depth</label><select className="fse" value={form.depth} onChange={e=>up('depth',e.target.value)}>{[1,2,3,4,5,10].map(d=><option key={d} value={d}>{d} levels</option>)}</select></div>
+                <div className="fg"><label className="fl">Max pages</label><select className="fse" value={form.maxPages} onChange={e=>up('maxPages',e.target.value)}>{[100,500,1000,5000,10000].map(p=><option key={p} value={p}>{p.toLocaleString()}</option>)}</select></div>
+              </div>
+              <div className="fg"><label className="fl">Include paths <span style={{color:'var(--text4)'}}>opt.</span></label><input className="fi" placeholder="/docs/, /blog/" style={{fontFamily:'var(--ffm)',fontSize:13}}/></div>
+              <div className="fg"><label className="fl">Exclude paths <span style={{color:'var(--text4)'}}>opt.</span></label><input className="fi" placeholder="/admin/, /login/" style={{fontFamily:'var(--ffm)',fontSize:13}}/></div>
+              {[['jsRender','JavaScript rendering','For React/Vue/Angular SPAs'],['respectRobots','Respect robots.txt','Follow crawl directives (recommended)']].map(([k,l,d])=>(
+                <div key={k} className="fxb" style={{padding:'12px 14px',background:'var(--surface)',border:'1px solid var(--border)',borderRadius:'var(--r)'}}>
+                  <div><div style={{fontSize:13,fontWeight:500}}>{l}</div><div style={{fontSize:12,color:'var(--text3)'}}>{d}</div></div>
+                  <label className="tog"><input type="checkbox" checked={!!form[k]} onChange={e=>up(k,e.target.checked)}/><span className="tsl"/></label>
+                </div>
+              ))}
+            </div>
+          )}
+          {step===3&&(
+            <div style={{display:'flex',flexDirection:'column',gap:12}}>
+              <h2 style={{fontSize:20,fontFamily:'var(--ffd)'}}>Output formats</h2>
+              {[['json','JSON','Full structured data'],['jsonl','JSONL','Line-delimited bulk'],['markdown','Markdown','Clean text for LLMs'],['chunks','Chunks','Pre-split with overlap'],['csv','CSV','Metadata index']].map(([fmt,l,d])=>(
+                <div key={fmt} onClick={()=>toggleOut(fmt)} className="fxc" style={{gap:12,padding:'12px 15px',border:`2px solid ${form.outputs.includes(fmt)?'var(--accent)':'var(--border)'}`,borderRadius:'var(--rlg)',cursor:'pointer',background:form.outputs.includes(fmt)?'var(--bg2)':'var(--surface)',transition:'all .14s'}}>
+                  <div style={{width:17,height:17,border:`2px solid ${form.outputs.includes(fmt)?'var(--accent)':'var(--border2)'}`,borderRadius:4,background:form.outputs.includes(fmt)?'var(--accent)':'transparent',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+                    {form.outputs.includes(fmt)&&<I n="check" s={10} c="white"/>}
+                  </div>
+                  <div><div style={{fontSize:13,fontWeight:600}}>{l}</div><div style={{fontSize:12,color:'var(--text3)'}}>{d}</div></div>
+                </div>
+              ))}
+            </div>
+          )}
+          {step===4&&(
+            <div style={{display:'flex',flexDirection:'column',gap:11}}>
+              <h2 style={{fontSize:20,fontFamily:'var(--ffd)'}}>Destination</h2>
+              {[['download','Download only','Export files directly'],['pinecone','Pinecone','Push to your index'],['qdrant','Qdrant','Deliver to collection'],['weaviate','Weaviate','Upload to class'],['pgvector','PGVector','Insert into PostgreSQL'],['endpoint','Custom endpoint','POST to any REST API']].map(([v,l,d])=>(
+                <div key={v} onClick={()=>up('dest',v)} className="fxc" style={{gap:11,padding:'12px 15px',border:`2px solid ${form.dest===v?'var(--accent)':'var(--border)'}`,borderRadius:'var(--rlg)',cursor:'pointer',background:form.dest===v?'var(--bg2)':'var(--surface)',transition:'all .14s'}}>
+                  <div style={{width:16,height:16,border:`2px solid ${form.dest===v?'var(--accent)':'var(--border2)'}`,borderRadius:'50%',background:form.dest===v?'var(--accent)':'transparent',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+                    {form.dest===v&&<div style={{width:5,height:5,background:'white',borderRadius:'50%'}}/>}
+                  </div>
+                  <div><div style={{fontSize:13,fontWeight:600}}>{l}</div><div style={{fontSize:12,color:'var(--text3)'}}>{d}</div></div>
+                </div>
+              ))}
+            </div>
+          )}
+          {step===5&&(
+            <div style={{display:'flex',flexDirection:'column',gap:15}}>
+              <h2 style={{fontSize:20,fontFamily:'var(--ffd)'}}>Review & launch</h2>
+              <div className="card" style={{background:'var(--bg2)'}}>
+                {[['Project name',form.name||'-'],['Website URL',form.url||'-'],['Max pages',Number(form.maxPages).toLocaleString()],['JS rendering',form.jsRender?'Enabled':'Disabled'],['Outputs',form.outputs.join(', ')||'None'],['Destination',form.dest]].map(([k,v])=>(
+                  <div key={k} className="fxb" style={{padding:'8px 0',borderBottom:'1px solid var(--border)',fontSize:13}}>
+                    <span style={{color:'var(--text3)'}}>{k}</span>
+                    <span style={{fontWeight:500,fontFamily:k==='Website URL'?'var(--ffm)':'inherit'}}>{v}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="alert aii"><I n="info" s={15} c="var(--blue)"/><span>Consumes up to <strong>{Number(form.maxPages).toLocaleString()} pages</strong> from your quota.</span></div>
+            </div>
+          )}
+
+          <div className="fxb" style={{marginTop:26,paddingTop:16,borderTop:'1px solid var(--border)'}}>
+            <button className="btn bs" onClick={()=>step>1?setStep(s=>s-1):setPage('projects')} disabled={launching}>
+              <I n="chevron-left" s={13}/>{step===1?'Cancel':'Back'}
+            </button>
+            {step<5?(
+              <button className="btn bp" onClick={()=>setStep(s=>s+1)}>Continue <I n="chevron-right" s={13} c="white"/></button>
+            ):(
+              <button className="btn bbr blg" onClick={()=>{setLaunching(true);setTimeout(()=>{setLaunching(false);setLaunched(true);toast('Project launched!','success');},2000);}} disabled={launching}>
+                {launching?<><Spin s={14}/>Starting...</>:<><I n="zap" s={14} c="white"/>Launch crawl</>}
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// PROJECT DETAIL
+const ProjectDetail=({setPage})=>{
+  const [tab,setTab]=useState('overview');
+  const [preview,setPreview]=useState(null);
+  const p=PROJECTS[0];
+  return(
+    <div>
+      <TopBar title={p.name} sub={p.domain} setPage={setPage} back="projects"
+        actions={<div className="fxc" style={{gap:8}}><SBadge status={p.status}/><button className="btn bs bsm"><I n="refresh-cw" s={11}/>Recrawl</button></div>}
+      />
+      <div style={{borderBottom:'1px solid var(--border)',background:'var(--surface)',padding:'0 24px',display:'flex',gap:2,overflowX:'auto'}}>
+        {['overview','pages','chunks','outputs','integrations','runs','settings'].map(t=>(
+          <button key={t} onClick={()=>setTab(t)} style={{padding:'12px 14px',border:'none',background:'none',cursor:'pointer',fontSize:13,fontWeight:500,color:tab===t?'var(--text)':'var(--text3)',borderBottom:`2px solid ${tab===t?'var(--accent)':'transparent'}`,marginBottom:-1,fontFamily:'var(--ff)',transition:'color .14s',whiteSpace:'nowrap',textTransform:'capitalize'}}>
+            {t}
+          </button>
+        ))}
+      </div>
+      <div className="pc aif">
+        {tab==='overview'&&(
+          <div>
+            <div className="g4 mb4">
+              {[['Pages found','1,842','file-text'],['Processed','1,839','check-circle'],['Chunks','24,180','layers'],['Errors','3','alert-circle']].map(([l,v,ico])=>(
+                <div key={l} className="mc"><div className="fxb"><span style={{fontSize:10,fontWeight:600,color:'var(--text3)',textTransform:'uppercase',letterSpacing:'.05em'}}>{l}</span><I n={ico} s={13} c="var(--text3)"/></div><div className="mv" style={{fontSize:24}}>{v}</div></div>
+              ))}
+            </div>
+            <div className="card mb4">
+              <h3 style={{fontSize:13,marginBottom:12}}>Pipeline stages - last run</h3>
+              <div className="fxc" style={{gap:6,flexWrap:'wrap'}}>
+                {['Connecting','Discovering','Crawling','Extracting','Chunking','Outputs','Complete +'].map((s,i)=>(
+                  <div key={s} style={{display:'flex',alignItems:'center',gap:4,padding:'3px 10px',background:i<6?'var(--green-bg)':'var(--bg2)',border:'1px solid',borderColor:i<6?'rgba(26,122,79,.18)':'var(--border)',borderRadius:100,fontSize:11,color:i<6?'var(--green)':'var(--text3)'}}>
+                    {i<6&&<I n="check" s={9} c="var(--green)"/>}{s}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+        {tab==='pages'&&(
+          <div className="dtw">
+            <table className="dt">
+              <thead><tr><th>Title</th><th>URL</th><th>Status</th><th>Chunks</th><th></th></tr></thead>
+              <tbody>
+                {PAGES.map(pg=>(
+                  <tr key={pg.id}>
+                    <td style={{fontWeight:500,fontSize:13}}>{pg.title}</td>
+                    <td><code style={{fontSize:11,color:'var(--text3)',fontFamily:'var(--ffm)'}}>{pg.url}</code></td>
+                    <td><SBadge status={pg.status}/></td>
+                    <td style={{fontFamily:'var(--ffm)',fontSize:13}}>{pg.chunks}</td>
+                    <td><button className="btn bg2btn bsm" onClick={()=>setPreview(pg)}>Preview</button></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        {tab==='outputs'&&(
+          <div className="g3">
+            {[['JSON','json','4.2 MB','ready','code'],['JSONL','jsonl','3.8 MB','ready','list'],['Markdown','md','2.1 MB','ready','file-text'],['Chunks','txt','5.6 MB','ready','layers'],['CSV','csv','0.4 MB','ready','grid'],['Vector Pack','bin','-','processing','database']].map(([name,ext,size,status,ico])=>(
+              <div key={name} className="card">
+                <div className="fxb mb3"><div style={{width:36,height:36,background:'var(--bg2)',borderRadius:9,display:'flex',alignItems:'center',justifyContent:'center'}}><I n={ico} s={16} c="var(--text2)"/></div><SBadge status={status}/></div>
+                <div style={{fontSize:13,fontWeight:600,marginBottom:2}}>{name}</div>
+                <div style={{fontSize:11,color:'var(--text3)',marginBottom:11,fontFamily:'var(--ffm)'}}>*.{ext} . {size}</div>
+                {status==='ready'?<button className="btn bs bsm bfw" style={{justifyContent:'center'}}><I n="download" s={12}/>Download</button>:<button className="btn bs bsm bfw" style={{justifyContent:'center'}} disabled><Spin s={11}/>Generating...</button>}
+              </div>
+            ))}
+          </div>
+        )}
+        {tab==='runs'&&(
+          <div className="dtw">
+            <table className="dt">
+              <thead><tr><th>Run ID</th><th>Date</th><th>Status</th><th>Duration</th><th>Pages</th><th>Errors</th></tr></thead>
+              <tbody>
+                {RUNS.map(r=>(
+                  <tr key={r.id}>
+                    <td><code style={{fontSize:11,fontFamily:'var(--ffm)',color:'var(--text3)'}}>{r.id}</code></td>
+                    <td style={{fontSize:12}}>{r.date}</td>
+                    <td><SBadge status={r.status}/></td>
+                    <td style={{fontSize:12,fontFamily:'var(--ffm)'}}>{r.dur}</td>
+                    <td style={{fontSize:12,fontFamily:'var(--ffm)'}}>{r.pages.toLocaleString()}</td>
+                    <td><span style={{fontSize:12,color:r.errs>0?'var(--red)':'var(--text3)'}}>{r.errs}</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        {tab==='integrations'&&(
+          <div style={{display:'flex',flexDirection:'column',gap:20,maxWidth:560}}>
+            <div style={{background:'rgba(212,98,42,.06)',border:'1px solid rgba(212,98,42,.2)',borderRadius:'var(--rlg)',padding:'13px 16px',display:'flex',gap:10,alignItems:'flex-start'}}>
+              <I n="zap" s={14} c="var(--brand)"/>
+              <div style={{fontSize:13,color:'var(--text2)',lineHeight:1.6}}><strong>Professional and Enterprise feature.</strong> Provide your own embedding API key and vector DB credentials. We crawl, chunk, embed using your key, and push to your database. Each run re-embeds all pages.</div>
+            </div>
+            <div className="card">
+              <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:16}}>
+                <div style={{width:26,height:26,borderRadius:'50%',background:'var(--accent)',color:'white',display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,fontWeight:700,flexShrink:0}}>1</div>
+                <div><div style={{fontSize:14,fontWeight:700}}>Embedding API</div><div style={{fontSize:12,color:'var(--text3)'}}>Your API key - billed directly by provider</div></div>
+              </div>
+              <div style={{display:'flex',flexDirection:'column',gap:10}}>
+                <div className="fg"><label className="fl">Provider</label><select className="fi"><option>OpenAI</option><option>Cohere</option></select></div>
+                <div className="fg"><label className="fl">Model</label><select className="fi"><option>text-embedding-3-small (1536 dims)</option><option>text-embedding-3-large (3072 dims)</option><option>Cohere embed-english-v3.0 (1024 dims)</option></select></div>
+                <div className="fg"><label className="fl">API Key</label><input className="fi" type="password" placeholder="sk-... or co_..."/><div style={{fontSize:11,color:'var(--text4)',marginTop:4}}>Stored encrypted. Used only for this project.</div></div>
+                <button className="btn bp" style={{alignSelf:'flex-start'}}>Save embedding config</button>
+              </div>
+            </div>
+            <div className="card">
+              <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:16}}>
+                <div style={{width:26,height:26,borderRadius:'50%',background:'var(--accent)',color:'white',display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,fontWeight:700,flexShrink:0}}>2</div>
+                <div><div style={{fontSize:14,fontWeight:700}}>Vector Database</div><div style={{fontSize:12,color:'var(--text3)'}}>Your database - Apexverse pushes after each run</div></div>
+              </div>
+              <div style={{display:'flex',flexDirection:'column',gap:10}}>
+                <div className="fg"><label className="fl">Database</label><select className="fi"><option>Pinecone</option><option>Qdrant</option><option>Weaviate</option><option>PGVector</option><option>Milvus</option><option>Azure AI Search</option><option>Custom REST</option></select></div>
+                <div className="fg"><label className="fl">API Key / Connection string</label><input className="fi" type="password" placeholder="Your credentials"/></div>
+                <div className="fg"><label className="fl">Index / Collection name</label><input className="fi" placeholder="e.g. my-knowledge-base"/></div>
+                <div className="fg"><label className="fl">Namespace (optional)</label><input className="fi" placeholder="e.g. project-docs"/></div>
+                <button className="btn bp" style={{alignSelf:'flex-start'}}>Save and test connection</button>
+              </div>
+            </div>
+            <div style={{padding:'13px 16px',background:'var(--surface)',border:'1px solid var(--border)',borderRadius:'var(--rlg)',display:'flex',alignItems:'center',gap:10}}>
+              <I n="alert-circle" s={14} c="var(--text4)"/>
+              <span style={{fontSize:13,color:'var(--text3)'}}>Not configured - complete both steps above to enable auto-push.</span>
+            </div>
+          </div>
+        )}
+        {tab==='settings'&&(
+          <div style={{maxWidth:500,display:'flex',flexDirection:'column',gap:16}}>
+            <div className="card">
+              <h3 style={{fontSize:13,marginBottom:13}}>Project settings</h3>
+              <div style={{display:'flex',flexDirection:'column',gap:12}}>
+                <div className="fg"><label className="fl">Project name</label><input className="fi" defaultValue={p.name}/></div>
+                <button className="btn bp" style={{alignSelf:'flex-start'}}>Save changes</button>
+              </div>
+            </div>
+            <div className="card" style={{border:'1px solid rgba(192,57,43,.25)'}}>
+              <h3 style={{fontSize:13,color:'var(--red)',marginBottom:6}}>Danger zone</h3>
+              <p style={{fontSize:12,color:'var(--text3)',marginBottom:12}}>These actions cannot be undone.</p>
+              <div className="fxc" style={{gap:8}}>
+                <button className="btn bdn bsm">Reset data</button>
+                <button className="btn bdn bsm">Delete project</button>
+              </div>
+            </div>
+          </div>
+        )}
+        {tab==='chunks'&&(
+          <div className="g2">
+            {[1,2,3,4].map(i=>(
+              <div key={i} className="card ch" style={{cursor:'pointer'}}>
+                <div className="fxb mb3"><code style={{fontSize:10,background:'var(--bg2)',padding:'2px 7px',borderRadius:5,color:'var(--text3)',fontFamily:'var(--ffm)'}}>chunk_{String(i).padStart(4,'0')}</code><span className="badge bggr">512 tokens</span></div>
+                <p style={{fontSize:12,color:'var(--text2)',lineHeight:1.7,display:'-webkit-box',WebkitLineClamp:3,WebkitBoxOrient:'vertical',overflow:'hidden'}}>The API accepts JSON-encoded request bodies and returns JSON-encoded responses. All requests must be made over HTTPS. Authentication uses Bearer tokens...</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      {preview&&(
+        <div className="moverlay" onClick={()=>setPreview(null)}>
+          <div className="modal" style={{maxWidth:580}} onClick={e=>e.stopPropagation()}>
+            <div className="mh"><h3 style={{fontSize:15}}>{preview.title}</h3><code style={{fontSize:11,color:'var(--text3)',display:'block',marginTop:3,fontFamily:'var(--ffm)'}}>{preview.url}</code></div>
+            <div className="mb2">
+              <div className="code" style={{fontSize:12,maxHeight:240,overflow:'auto'}}>
+                <span className="cc"># {preview.title}</span><br/><br/>
+                ## Introduction<br/>API access to all platform features...<br/><br/>
+                ## Authentication<br/>All requests require a Bearer token in Authorization header...
+              </div>
+            </div>
+            <div className="mf"><button className="btn bg2btn" onClick={()=>setPreview(null)}>Close</button><button className="btn bp"><I n="copy" s={11} c="white"/>Copy</button></div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ANALYTICS
+const Analytics=({setPage})=>{
+  const bars=[65,80,45,90,72,85,60,95,70,88,75,100];
+  const months=['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
+  return(
+    <div>
+      <TopBar title="Analytics" sub="Usage and processing metrics" setPage={setPage} back="dashboard"/>
+      <div className="pc ai">
+        <div className="g4 mb4">
+          {[['Pages this month','47,200','trending-up','var(--green)'],['Avg chunk size','487 tokens','layers','var(--blue)'],['Export volume','312 MB','download','var(--brand)'],['Success rate','98.4%','check-circle','var(--green)']].map(([l,v,ico,c])=>(
+            <div key={l} className="mc"><div className="fxb"><span style={{fontSize:10,fontWeight:600,color:'var(--text3)',textTransform:'uppercase',letterSpacing:'.05em'}}>{l}</span><I n={ico} s={13} c={c}/></div><div className="mv" style={{fontSize:24}}>{v}</div></div>
+          ))}
+        </div>
+        <div className="card mb4">
+          <div className="fxb mb4"><h3 style={{fontSize:13}}>Pages processed over time</h3></div>
+          <div className="fxc" style={{alignItems:'flex-end',gap:6,height:120,marginBottom:5}}>
+            {bars.map((h,i)=>(
+              <div key={i} style={{flex:1,display:'flex',flexDirection:'column',alignItems:'center',gap:3}}>
+                <div style={{width:'100%',background:`rgba(24,23,15,${i===11?0.88:0.1})`,borderRadius:'3px 3px 0 0',height:`${h*1.1}px`,cursor:'pointer',transition:'background .14s'}}
+                  onMouseEnter={e=>e.currentTarget.style.background=`rgba(24,23,15,${i===11?0.9:0.25})`}
+                  onMouseLeave={e=>e.currentTarget.style.background=`rgba(24,23,15,${i===11?0.88:0.1})`}/>
+                <span style={{fontSize:8,color:'var(--text4)'}}>{months[i]}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="g2">
+          <div className="card">
+            <h3 style={{fontSize:13,marginBottom:13}}>Quota usage</h3>
+            {[['Pages','47,200 / 50,000',94,'var(--red)'],['Projects','5 / 10',50,'var(--accent)'],['Integrations','2 / Unlimited',null,'']].map(([l,v,pct,c])=>(
+              <div key={l} style={{marginBottom:12}}>
+                <div className="fxb" style={{marginBottom:4,fontSize:12}}><span style={{color:'var(--text2)'}}>{l}</span><span style={{color:'var(--text3)',fontFamily:'var(--ffm)'}}>{v}</span></div>
+                {pct&&<div className="pb"><div className="pf" style={{width:`${pct}%`,background:pct>90?'var(--red)':pct>70?'var(--yellow)':'var(--accent)'}}/></div>}
+              </div>
+            ))}
+          </div>
+          <div className="card">
+            <h3 style={{fontSize:13,marginBottom:13}}>Export breakdown</h3>
+            {[['JSON','48%','var(--brand)'],['Markdown','26%','var(--blue)'],['Chunks','18%','var(--green)'],['CSV','8%','var(--yellow)']].map(([f,p,c])=>(
+              <div key={f} className="fxc" style={{gap:10,marginBottom:10}}>
+                <div style={{width:8,height:8,borderRadius:2,background:c,flexShrink:0}}/>
+                <span style={{flex:1,fontSize:13}}>{f}</span>
+                <span style={{fontFamily:'var(--ffm)',fontSize:13,fontWeight:600}}>{p}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// BILLING
+const Billing=({setPage})=>{
+  const [showCpn,setShowCpn]=useState(false);
+  const [cpn,setCpn]=useState('');
+  const toast=useToast();
+  return(
+    <div>
+      <TopBar title="Billing" sub="Manage your plan" setPage={setPage} back="dashboard"/>
+      <div className="pc ai" style={{maxWidth:820}}>
+        <div className="g2 mb4">
+          <div className="plancard">
+            <div style={{fontSize:10,fontWeight:600,textTransform:'uppercase',letterSpacing:'.07em',color:'rgba(255,255,255,.4)',marginBottom:4}}>Current plan</div>
+            <div className="fxc" style={{gap:7,marginBottom:3}}><h2 style={{fontSize:28,color:'white',fontFamily:'var(--ffd)'}}>Growth</h2><span style={{fontSize:13,color:'rgba(255,255,255,.4)'}}>$149/month</span></div>
+            <div style={{fontSize:12,color:'rgba(255,255,255,.4)',marginBottom:16}}>Billing: Mar 1 - Apr 1, 2026</div>
+            <div className="fxc" style={{gap:8}}>
+              <button className="btn bsm" style={{background:'rgba(255,255,255,.14)',color:'white',border:'1px solid rgba(255,255,255,.24)'}} onClick={()=>setPage('checkout')}>Upgrade</button>
+              <button className="btn bsm" style={{background:'transparent',color:'rgba(255,255,255,.38)',border:'1px solid rgba(255,255,255,.1)'}}>Downgrade</button>
+            </div>
+          </div>
+          <div className="card">
+            <h3 style={{fontSize:13,marginBottom:13}}>Usage this cycle</h3>
+            <div className="fxb" style={{fontSize:12,marginBottom:5}}><span>Pages</span><span style={{fontFamily:'var(--ffm)',fontWeight:600}}>47,200 / 50,000</span></div>
+            <div className="pb mb3"><div className="pf" style={{width:'94.4%',background:'var(--yellow)'}}/></div>
+            <div className="alert awi" style={{padding:'8px 11px'}}><I n="alert-triangle" s={14} c="var(--yellow)"/><span style={{fontSize:12}}>2,800 pages remaining. Overage: $4/1,000.</span></div>
+          </div>
+        </div>
+        <div className="card mb4">
+          <div className="fxb mb3"><h3 style={{fontSize:13}}>Payment method</h3><button className="btn bs bsm">Update</button></div>
+          <div className="fxc" style={{gap:12,padding:'12px 14px',background:'var(--bg2)',borderRadius:'var(--r)',border:'1px solid var(--border)'}}>
+            <div style={{width:42,height:26,background:'#18170F',borderRadius:4,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><span style={{fontSize:8,color:'white',fontWeight:800,letterSpacing:'.03em'}}>VISA</span></div>
+            <div><div style={{fontSize:13,fontWeight:500}}>Visa ending in 4242</div><div style={{fontSize:11,color:'var(--text3)'}}>Expires 12/2027</div></div>
+            <span className="badge bgg" style={{marginLeft:'auto'}}>Default</span>
+          </div>
+        </div>
+        {!showCpn?(
+          <div className="card mb4 fxb"><div><h3 style={{fontSize:13,marginBottom:1}}>Promo code</h3><p style={{fontSize:12,color:'var(--text3)'}}>Have a discount?</p></div><button className="btn bs bsm" onClick={()=>setShowCpn(true)}>Add code</button></div>
+        ):(
+          <div className="card mb4">
+            <h3 style={{fontSize:13,marginBottom:12}}>Apply promo code</h3>
+            <div className="fxc" style={{gap:8}}>
+              <input className="fi" placeholder="PROMO2026" value={cpn} onChange={e=>setCpn(e.target.value.toUpperCase())} style={{fontFamily:'var(--ffm)',flex:1}}/>
+              <button className="btn bp bsm" onClick={()=>cpn&&toast('Promo applied - 20% off for 3 months!','success')}>Apply</button>
+              <button className="btn bg2btn bsm" onClick={()=>setShowCpn(false)}>Cancel</button>
+            </div>
+          </div>
+        )}
+        <div className="dtw">
+          <div style={{padding:'15px 18px',borderBottom:'1px solid var(--border)'}}><h3 style={{fontSize:13}}>Invoice history</h3></div>
+          <table className="dt">
+            <thead><tr><th>Invoice</th><th>Date</th><th>Plan</th><th>Amount</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+              {INVOICES.map(inv=>(
+                <tr key={inv.id}>
+                  <td><code style={{fontFamily:'var(--ffm)',fontSize:11}}>{inv.id}</code></td>
+                  <td style={{fontSize:12}}>{inv.date}</td>
+                  <td><span className="badge bggr">{inv.plan}</span></td>
+                  <td style={{fontFamily:'var(--ffm)',fontWeight:600,fontSize:12}}>{inv.amt}</td>
+                  <td><SBadge status={inv.status}/></td>
+                  <td><button className="btn bg2btn bsm"><I n="download" s={11}/>PDF</button></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// CHECKOUT
+const Checkout=({setPage,setLoggedIn})=>{
+  const [plan,setPlan]=useState('starter');
+  const [annual,setAnnual]=useState(false);
+  const [addons,setAddons]=useState([]);
+  const [step,setStep]=useState('form');
+  const [loading,setLoading]=useState(false);
+  const [form,setForm]=useState({email:'alex@acme.io',name:'',card:'',exp:'',cvc:''});
+  const [errs,setErrs]=useState({});
+  const toast=useToast();
+  const plans={starter:{name:'Starter',mo:49,yr:39},growth:{name:'Growth',mo:149,yr:119}};
+  const addonList=[{id:'jsr',l:'JS Rendering',p:29},{id:'pri',l:'Priority Processing',p:19},{id:'prm',l:'Premium Extraction',p:39}];
+  const sel=plans[plan];
+  const base=annual?sel.yr:sel.mo;
+  const addonTotal=addons.reduce((s,id)=>s+((addonList.find(a=>a.id===id)||{p:0}).p||0),0);
+  const total=base+addonTotal;
+  const toggleA=id=>setAddons(a=>a.includes(id)?a.filter(x=>x!==id):[...a,id]);
+  const validate=()=>{
+    const e={};
+    if(!form.email)e.email='Required';
+    if(!form.name)e.name='Required';
+    if(!form.card||form.card.replace(/\s/g,'').length<16)e.card='Valid card required';
+    if(!form.exp)e.exp='Required';
+    if(!form.cvc||form.cvc.length<3)e.cvc='Required';
+    return e;
+  };
+  if(step==='success')return(
+    <div style={{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',background:'var(--bg)',padding:20}}>
+      <div style={{textAlign:'center',maxWidth:440}}>
+        <div style={{width:72,height:72,background:'var(--green-bg)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 24px',animation:'float 2s ease-in-out infinite'}}><I n="check-circle" s={32} c="var(--green)"/></div>
+        <h2 style={{fontSize:26,fontFamily:'var(--ffd)',marginBottom:8}}>Payment successful!</h2>
+        <p style={{fontSize:14,color:'var(--text3)',marginBottom:22,lineHeight:1.65}}>You're now on <strong>{sel.name}</strong>. Your account has been upgraded.</p>
+        <div className="fxc" style={{justifyContent:'center',gap:10}}>
+          <button className="btn bp" onClick={()=>{setLoggedIn(true);setPage('dashboard');}}>Go to dashboard</button>
+          <button className="btn bs" onClick={()=>setPage('billing')}>View billing</button>
+        </div>
+      </div>
+    </div>
+  );
+  if(step==='failed')return(
+    <div style={{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',background:'var(--bg)',padding:20}}>
+      <div style={{textAlign:'center',maxWidth:400}}>
+        <div style={{width:72,height:72,background:'var(--red-bg)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 24px'}}><I n="alert-circle" s={32} c="var(--red)"/></div>
+        <h2 style={{fontSize:24,fontFamily:'var(--ffd)',marginBottom:8}}>Payment failed</h2>
+        <p style={{fontSize:14,color:'var(--text3)',marginBottom:20}}>Your card was declined. Please check your details and try again.</p>
+        <div className="fxc" style={{justifyContent:'center',gap:10}}>
+          <button className="btn bp" onClick={()=>setStep('form')}>Try again</button>
+          <button className="btn bs" onClick={()=>setPage('billing')}>Update payment</button>
+        </div>
+      </div>
+    </div>
+  );
+  return(
+    <div style={{minHeight:'100vh',background:'var(--bg)',padding:'32px 24px'}}>
+      <div style={{maxWidth:900,margin:'0 auto'}}>
+        <button onClick={()=>setPage('pricing')} style={{background:'none',border:'none',cursor:'pointer',marginBottom:26,padding:0}}><Logo/></button>
+        <h1 style={{fontSize:24,fontFamily:'var(--ffd)',fontWeight:800,marginBottom:26}}>Complete your purchase</h1>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 300px',gap:24,alignItems:'start'}}>
+          <div style={{display:'flex',flexDirection:'column',gap:16}}>
+            <div className="card">
+              <h3 style={{fontSize:13,marginBottom:12}}>Select plan</h3>
+              <div className="fxc" style={{gap:8,marginBottom:12}}>
+                {['starter','growth','professional'].map(p=>(
+                  <div key={p} onClick={()=>setPlan(p)} style={{flex:1,padding:'10px 14px',border:`2px solid ${plan===p?'var(--accent)':'var(--border)'}`,borderRadius:'var(--r)',cursor:'pointer',background:plan===p?'var(--bg2)':'var(--surface)',transition:'all .14s',textAlign:'center'}}>
+                    <div style={{fontSize:13,fontWeight:700,textTransform:'capitalize'}}>{p}</div>
+                    <div style={{fontSize:12,color:'var(--text3)'}}>${annual?plans[p].yr:plans[p].mo}/mo</div>
+                  </div>
+                ))}
+              </div>
+              <div className="fxc" style={{gap:8}}>
+                <label className="tog"><input type="checkbox" checked={annual} onChange={e=>setAnnual(e.target.checked)}/><span className="tsl"/></label>
+                <span style={{fontSize:13}}>Annual billing <span className="badge bgg" style={{fontSize:11}}>Save 20%</span></span>
+              </div>
+            </div>
+            <div className="card">
+              <h3 style={{fontSize:13,marginBottom:12}}>Add-ons</h3>
+              {addonList.map(a=>(
+                <div key={a.id} onClick={()=>toggleA(a.id)} className="fxc" style={{gap:10,padding:'8px 0',borderBottom:'1px solid var(--border)',cursor:'pointer'}}>
+                  <div style={{width:16,height:16,border:`2px solid ${addons.includes(a.id)?'var(--accent)':'var(--border2)'}`,borderRadius:4,background:addons.includes(a.id)?'var(--accent)':'transparent',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,transition:'all .14s'}}>
+                    {addons.includes(a.id)&&<I n="check" s={9} c="white"/>}
+                  </div>
+                  <span style={{flex:1,fontSize:13}}>{a.l}</span>
+                  <span style={{fontSize:12,fontWeight:600,color:'var(--brand)',fontFamily:'var(--ffm)'}}>+${a.p}/mo</span>
+                </div>
+              ))}
+            </div>
+            <div className="card">
+              <h3 style={{fontSize:13,marginBottom:13}}>Payment</h3>
+              <div style={{display:'flex',flexDirection:'column',gap:11}}>
+                <div className="fg"><label className="fl">Billing email</label><input className={`fi${errs.email?' fie':''}`} value={form.email} onChange={e=>setForm({...form,email:e.target.value})}/>{errs.email&&<span className="ferr">{errs.email}</span>}</div>
+                <div className="fg"><label className="fl">Cardholder name</label><input className={`fi${errs.name?' fie':''}`} placeholder="Alex Chen" value={form.name} onChange={e=>setForm({...form,name:e.target.value})}/>{errs.name&&<span className="ferr">{errs.name}</span>}</div>
+                <div className="fg"><label className="fl">Card number</label><input className={`fi${errs.card?' fie':''}`} placeholder="4242 4242 4242 4242" value={form.card} onChange={e=>setForm({...form,card:e.target.value})} style={{fontFamily:'var(--ffm)'}} maxLength={19}/>{errs.card&&<span className="ferr">{errs.card}</span>}</div>
+                <div className="g2">
+                  <div className="fg"><label className="fl">Expiry</label><input className={`fi${errs.exp?' fie':''}`} placeholder="MM / YY" value={form.exp} onChange={e=>setForm({...form,exp:e.target.value})} style={{fontFamily:'var(--ffm)'}} maxLength={7}/>{errs.exp&&<span className="ferr">{errs.exp}</span>}</div>
+                  <div className="fg"><label className="fl">CVC</label><input className={`fi${errs.cvc?' fie':''}`} placeholder="123" value={form.cvc} onChange={e=>setForm({...form,cvc:e.target.value})} style={{fontFamily:'var(--ffm)'}} maxLength={4}/>{errs.cvc&&<span className="ferr">{errs.cvc}</span>}</div>
+                </div>
+              </div>
+            </div>
+            <button className="btn bbr bxl bfw" style={{justifyContent:'center'}} onClick={()=>{const e=validate();setErrs(e);if(Object.keys(e).length)return;setLoading(true);setTimeout(()=>{setLoading(false);setStep(form.card.startsWith('4000')?'failed':'success');},2000);}} disabled={loading}>
+              {loading?<><Spin s={16}/>Processing...</>:<><I n="lock" s={14} c="white"/>Complete purchase - ${total}/month</>}
+            </button>
+            <p style={{fontSize:11,color:'var(--text4)',textAlign:'center'}}>Secured by 256-bit SSL . Cancel anytime</p>
+          </div>
+          <div>
+            <div className="card" style={{position:'sticky',top:18}}>
+              <h3 style={{fontSize:13,marginBottom:13}}>Order summary</h3>
+              <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:12}}>
+                <div className="fxb" style={{fontSize:13}}><span>{sel.name}</span><span style={{fontWeight:600}}>${base}/mo</span></div>
+                {addons.map(id=>{const a=addonList.find(x=>x.id===id);return a?<div key={id} className="fxb" style={{fontSize:13}}><span>{a.l}</span><span>+${a.p}/mo</span></div>:null;})}
+              </div>
+              <div className="fxb" style={{fontSize:14,fontWeight:700,paddingTop:10,borderTop:'1px solid var(--border)'}}><span>Total</span><span>${total}/month</span></div>
+              <div style={{marginTop:13,paddingTop:11,borderTop:'1px solid var(--border)',display:'flex',flexDirection:'column',gap:6}}>
+                {['Cancel anytime','14-day money-back guarantee','Immediate access'].map(f=>(
+                  <div key={f} className="fxc" style={{gap:6,fontSize:12,color:'var(--text3)'}}><I n="check" s={12} c="var(--green)"/>{f}</div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// TEAM
+const Team=({setPage})=>{
+  const [members,setMembers]=useState(MEMBERS);
+  const [invOpen,setInvOpen]=useState(false);
+  const [invEmail,setInvEmail]=useState('');
+  const [invRole,setInvRole]=useState('Member');
+  const toast=useToast();
+  return(
+    <div>
+      <TopBar title="Team" sub={`${members.length} members`} setPage={setPage} back="dashboard"
+        actions={<button className="btn bp bsm" onClick={()=>setInvOpen(true)}><I n="plus" s={13} c="white"/>Invite member</button>}
+      />
+      <div className="pc ai" style={{maxWidth:720}}>
+        <div className="dtw mb4">
+          <div style={{padding:'14px 18px',borderBottom:'1px solid var(--border)'}}><h3 style={{fontSize:13}}>Members</h3></div>
+          <table className="dt">
+            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Joined</th><th></th></tr></thead>
+            <tbody>
+              {members.map(m=>(
+                <tr key={m.id}>
+                  <td><div className="fxc" style={{gap:8}}>
+                    <div style={{width:28,height:28,borderRadius:'50%',background:'var(--accent)',color:'white',display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:700,fontFamily:'var(--ffd)',flexShrink:0}}>{m.av}</div>
+                    <span style={{fontWeight:600,fontSize:13}}>{m.name}</span>
+                    {m.id===1&&<span style={{fontSize:9,background:'var(--bg2)',border:'1px solid var(--border)',borderRadius:100,padding:'1px 6px',color:'var(--text3)'}}>you</span>}
+                  </div></td>
+                  <td style={{fontSize:12,color:'var(--text3)'}}>{m.email}</td>
+                  <td>
+                    <select value={m.role} disabled={m.id===1} onChange={e=>setMembers(ms=>ms.map(x=>x.id===m.id?{...x,role:e.target.value}:x))} style={{border:'1px solid var(--border)',borderRadius:'var(--r)',padding:'4px 8px',fontSize:12,fontFamily:'var(--ff)',background:'transparent',cursor:m.id===1?'default':'pointer'}}>
+                      <option>Owner</option><option>Admin</option><option>Member</option>
+                    </select>
+                  </td>
+                  <td style={{fontSize:12,color:'var(--text3)'}}>{m.joined}</td>
+                  <td>{m.id!==1&&<button className="btn bdn bsm" onClick={()=>{setMembers(ms=>ms.filter(x=>x.id!==m.id));toast(`${m.name} removed`,'success');}}>Remove</button>}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="card">
+          <h3 style={{fontSize:13,marginBottom:4}}>Pending invites</h3>
+          <p style={{fontSize:12,color:'var(--text3)'}}>No pending invites.</p>
+        </div>
+      </div>
+      {invOpen&&(
+        <div className="moverlay" onClick={()=>setInvOpen(false)}>
+          <div className="modal" onClick={e=>e.stopPropagation()}>
+            <div className="mh"><h3 style={{fontSize:15}}>Invite team member</h3></div>
+            <div className="mb2" style={{display:'flex',flexDirection:'column',gap:13}}>
+              <div className="fg"><label className="fl">Work email</label><input className="fi" type="email" placeholder="colleague@company.com" value={invEmail} onChange={e=>setInvEmail(e.target.value)}/></div>
+              <div className="fg"><label className="fl">Role</label><select className="fse" value={invRole} onChange={e=>setInvRole(e.target.value)}><option>Admin</option><option>Member</option></select></div>
+              <div className="alert aii"><I n="info" s={14} c="var(--blue)"/><span style={{fontSize:13}}>They'll receive an email invitation to join your workspace.</span></div>
+            </div>
+            <div className="mf">
+              <button className="btn bg2btn" onClick={()=>setInvOpen(false)}>Cancel</button>
+              <button className="btn bp" onClick={()=>{if(!invEmail)return;setInvOpen(false);toast(`Invite sent to ${invEmail}`,'success');setInvEmail('');}}>Send invite</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// SETTINGS
+const Settings=({setPage})=>{
+  const [tab,setTab]=useState('profile');
+  const [form,setForm]=useState({name:'Alex Chen',email:'alex@acme.io',company:'Acme Corp'});
+  const [notifs,setNotifs]=useState({crawlComplete:true,failures:true,billing:true,product:false,weekly:true});
+  const toast=useToast();
+  return(
+    <div>
+      <TopBar title="Settings" sub="Account and preferences" setPage={setPage} back="dashboard"/>
+      <div className="pc ai" style={{maxWidth:680}}>
+        <div className="tabs mb4" style={{alignSelf:'flex-start'}}>
+          {[['profile','Profile'],['security','Security'],['notifications','Notifications'],['preferences','Preferences']].map(([id,l])=>(
+            <button key={id} className={`tab${tab===id?' act':''}`} onClick={()=>setTab(id)}>{l}</button>
+          ))}
+        </div>
+        {tab==='profile'&&(
+          <div className="card" style={{maxWidth:480}}>
+            <h3 style={{fontSize:13,marginBottom:16}}>Profile</h3>
+            <div className="fxc" style={{gap:14,padding:'14px 0',borderBottom:'1px solid var(--border)',marginBottom:14}}>
+              <div style={{width:52,height:52,borderRadius:'50%',background:'var(--accent)',color:'white',display:'flex',alignItems:'center',justifyContent:'center',fontSize:18,fontWeight:700,fontFamily:'var(--ffd)',flexShrink:0}}>AC</div>
+              <div><div style={{fontSize:13,fontWeight:600,marginBottom:3}}>Profile photo</div><button className="btn bs bsm">Upload photo</button></div>
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:12}}>
+              <div className="fg"><label className="fl">Full name</label><input className="fi" value={form.name} onChange={e=>setForm({...form,name:e.target.value})}/></div>
+              <div className="fg"><label className="fl">Email</label><input className="fi" value={form.email} onChange={e=>setForm({...form,email:e.target.value})}/></div>
+              <div className="fg"><label className="fl">Company</label><input className="fi" value={form.company} onChange={e=>setForm({...form,company:e.target.value})}/></div>
+              <button className="btn bp" style={{alignSelf:'flex-start'}} onClick={()=>toast('Profile saved!','success')}>Save changes</button>
+            </div>
+          </div>
+        )}
+        {tab==='security'&&(
+          <div style={{display:'flex',flexDirection:'column',gap:15,maxWidth:480}}>
+            <div className="card">
+              <h3 style={{fontSize:13,marginBottom:13}}>Change password</h3>
+              <div style={{display:'flex',flexDirection:'column',gap:11}}>
+                <div className="fg"><label className="fl">Current password</label><input className="fi" type="password" placeholder="••••••••"/></div>
+                <div className="fg"><label className="fl">New password</label><input className="fi" type="password" placeholder="Min 8 characters"/></div>
+                <div className="fg"><label className="fl">Confirm new</label><input className="fi" type="password" placeholder="Re-enter new password"/></div>
+                <button className="btn bp" style={{alignSelf:'flex-start'}} onClick={()=>toast('Password updated!','success')}>Update password</button>
+              </div>
+            </div>
+            <div className="card fxb">
+              <div><h3 style={{fontSize:13,marginBottom:2}}>Two-factor auth</h3><p style={{fontSize:12,color:'var(--text3)'}}>Add extra security to your account.</p></div>
+              <button className="btn bs bsm">Enable 2FA</button>
+            </div>
+          </div>
+        )}
+        {tab==='notifications'&&(
+          <div className="card" style={{maxWidth:480}}>
+            <h3 style={{fontSize:13,marginBottom:16}}>Email notifications</h3>
+            {[['crawlComplete','Crawl completed','Notify when extraction finishes'],['failures','Crawl failures','Alerts on errors'],['billing','Billing alerts','Invoices and limit warnings'],['product','Product updates','New features and releases'],['weekly','Weekly digest','Usage summary']].map(([k,l,d])=>(
+              <div key={k} className="fxb" style={{padding:'12px 0',borderBottom:'1px solid var(--border)'}}>
+                <div><div style={{fontSize:13,fontWeight:500}}>{l}</div><div style={{fontSize:11,color:'var(--text3)'}}>{d}</div></div>
+                <label className="tog"><input type="checkbox" checked={notifs[k]} onChange={e=>setNotifs({...notifs,[k]:e.target.checked})}/><span className="tsl"/></label>
+              </div>
+            ))}
+          </div>
+        )}
+        {tab==='preferences'&&(
+          <div className="card" style={{maxWidth:480}}>
+            <h3 style={{fontSize:13,marginBottom:16}}>Preferences</h3>
+            <div style={{display:'flex',flexDirection:'column',gap:13}}>
+              <div className="fg"><label className="fl">Timezone</label><select className="fse"><option>UTC</option><option>PST</option><option>EST</option><option>CET</option></select></div>
+              <div className="fg"><label className="fl">Date format</label><select className="fse"><option>MM/DD/YYYY</option><option>DD/MM/YYYY</option><option>YYYY-MM-DD</option></select></div>
+              <button className="btn bp" style={{alignSelf:'flex-start'}} onClick={()=>toast('Preferences saved!','success')}>Save</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// SUPPORT
+const Support=({setPage})=>{
+  const [form,setForm]=useState({subject:'',message:'',priority:'normal'});
+  const [sent,setSent]=useState(false);
+  const toast=useToast();
+  return(
+    <div>
+      <TopBar title="Support" sub="Get help from our team" setPage={setPage} back="dashboard"/>
+      <div className="pc ai" style={{maxWidth:720}}>
+        <div className="g2 mb4" style={{alignItems:'start'}}>
+          <div>
+            <h3 style={{fontSize:16,fontFamily:'var(--ffd)',marginBottom:16}}>Contact support</h3>
+            {sent?(
+              <div className="alert asi"><I n="check-circle" s={16} c="var(--green)"/><span>Ticket submitted! Reference: <strong>#T-{Math.floor(Math.random()*9000)+1000}</strong>. Response within 24h.</span></div>
+            ):(
+              <div style={{display:'flex',flexDirection:'column',gap:12}}>
+                <div className="fg"><label className="fl">Subject</label><input className="fi" placeholder="Describe your issue" value={form.subject} onChange={e=>setForm({...form,subject:e.target.value})}/></div>
+                <div className="fg"><label className="fl">Priority</label><select className="fse" value={form.priority} onChange={e=>setForm({...form,priority:e.target.value})}><option value="low">Low</option><option value="normal">Normal</option><option value="high">High</option><option value="urgent">Urgent</option></select></div>
+                <div className="fg"><label className="fl">Message</label><textarea className="fta" placeholder="Describe in detail..." value={form.message} onChange={e=>setForm({...form,message:e.target.value})} style={{minHeight:120}}/></div>
+                <button className="btn bp" style={{alignSelf:'flex-start'}} onClick={()=>{setSent(true);toast('Support ticket submitted!','success');}}>Submit ticket</button>
+              </div>
+            )}
+          </div>
+          <div style={{display:'flex',flexDirection:'column',gap:12}}>
+            <div className="card">
+              <h3 style={{fontSize:13,marginBottom:12}}>Quick links</h3>
+              {[['book','Documentation','Browse API and platform docs'],['activity','System status','Current platform health'],['life-buoy','Community','Join our developer community']].map(([ico,t,d])=>(
+                <div key={t} className="fxc" style={{gap:10,padding:'8px 0',borderBottom:'1px solid var(--border)',cursor:'pointer'}}>
+                  <div style={{width:30,height:30,background:'var(--bg2)',borderRadius:7,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><I n={ico} s={13} c="var(--text2)"/></div>
+                  <div style={{flex:1}}><div style={{fontSize:12,fontWeight:600}}>{t}</div><div style={{fontSize:11,color:'var(--text3)'}}>{d}</div></div>
+                  <I n="external-link" s={11} c="var(--text4)"/>
+                </div>
+              ))}
+            </div>
+            <div className="card fxb">
+              <div><h3 style={{fontSize:12,marginBottom:1}}>Platform status</h3><p style={{fontSize:12,color:'var(--green)',fontWeight:500}}>All systems operational</p></div>
+              <div style={{width:8,height:8,borderRadius:'50%',background:'var(--green)',animation:'pulse 2s ease infinite'}}/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// DOCS
+const Docs=({setPage})=>{
+  const [sec,setSec]=useState('start');
+  const sections={
+    start:{title:'Getting Started',body:'DataForge AI lets you extract and structure any website into AI-ready data.\n\n## Quick Start\n\n1. Create a project with your target URL\n2. Configure crawl depth and path filters\n3. Choose output formats (JSON, Markdown, etc.)\n4. Launch and monitor extraction\n5. Download outputs or push to your vector database\n\n## Authentication\n\nAll API requests require a Bearer token. Generate keys in Account Settings.\n\nSee API Reference for full documentation.'},
+    api:{title:'API Reference',body:'## Base URL\nhttps://api.dataforgeai.com/v1\n\n## Authentication\n\nAuthorization: Bearer df_sk_...\n\n## Endpoints\n\nPOST /projects - Create a project\nPOST /projects/{id}/crawl - Start crawl\nGET /projects/{id}/outputs - Get outputs\nGET /projects/{id}/status - Get status'},
+    billing:{title:'Billing & Plans',body:'## Plans\n\n- Starter: $49/mo - 5,000 pages\n- Growth: $149/mo - 50,000 pages\n- Enterprise: Custom pricing\n\n## Usage\n\nPages are counted per successful URL extraction. Quotas reset monthly.\n\n## Upgrades\n\nPlan changes apply immediately. Upgrades are prorated.'},
+    integrations:{title:'Vector DB Integrations',body:'## Pinecone\n\n1. Add your API key in project settings\n2. Select your index and namespace\n3. Launch - chunks are upserted automatically\n\n## Qdrant\n\nConfigure your cluster URL and collection name.\n\n## Custom Endpoint\n\nPOST structured JSON chunks to any REST endpoint.'},
+  };
+  const d=sections[sec];
+  return(
+    <div style={{display:'flex',flex:1}}>
+      <div style={{width:200,flexShrink:0,borderRight:'1px solid var(--border)',background:'var(--surface)',padding:'18px 10px',position:'sticky',top:56,height:'calc(100vh - 56px)',overflow:'auto'}}>
+        <div style={{fontSize:10,fontWeight:700,textTransform:'uppercase',letterSpacing:'.07em',color:'var(--text4)',padding:'4px 8px 4px',marginBottom:6}}>Docs</div>
+        {[['start','Getting Started','book'],['api','API Reference','code'],['billing','Billing','credit-card'],['integrations','Integrations','database']].map(([id,l,ico])=>(
+          <button key={id} className={`ntab${sec===id?' act':''}`} style={{fontSize:12}} onClick={()=>setSec(id)}>
+            <I n={ico} s={13} c={sec===id?'var(--text)':'var(--text3)'}/>{l}
+          </button>
+        ))}
+      </div>
+      <div style={{flex:1,padding:'36px 44px',maxWidth:680}}>
+        <h1 style={{fontSize:26,fontFamily:'var(--ffd)',marginBottom:22}}>{d.title}</h1>
+        <div style={{fontSize:14,color:'var(--text2)',lineHeight:1.8}}>
+          {d.body.split('\n').map((line,i)=>{
+            if(line.startsWith('## '))return<h2 key={i} style={{fontSize:17,fontFamily:'var(--ffd)',marginBottom:9,marginTop:22}}>{line.slice(3)}</h2>;
+            if(line.startsWith('- '))return<div key={i} style={{display:'flex',gap:8,marginBottom:4,paddingLeft:8}}><span style={{color:'var(--brand)',fontWeight:700}}>.</span><span>{line.slice(2)}</span></div>;
+            if(line.match(/^\d+\./))return<div key={i} style={{display:'flex',gap:8,marginBottom:4,paddingLeft:8}}><span style={{color:'var(--text3)',fontFamily:'var(--ffm)',fontSize:12}}>{line[0]}.</span><span>{line.slice(3)}</span></div>;
+            if(line.includes('://'))return<div key={i} style={{fontFamily:'var(--ffm)',fontSize:12,background:'var(--bg2)',border:'1px solid var(--border)',borderRadius:'var(--r)',padding:'6px 11px',marginBottom:5}}>{line}</div>;
+            if(line==='')return<br key={i}/>;
+            return<p key={i} style={{marginBottom:5}}>{line}</p>;
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// NOTIFICATIONS PAGE
+const NotificationsPage=({setPage})=>{
+  const ic={success:'check-circle',error:'alert-circle',warning:'alert-triangle',info:'info'};
+  const cc={success:'var(--green)',error:'var(--red)',warning:'var(--yellow)',info:'var(--blue)'};
+  return(
+    <div>
+      <TopBar title="Notifications" setPage={setPage}/>
+      <div className="pc ai" style={{maxWidth:600}}>
+        {NOTIFS.map(n=>(
+          <div key={n.id} className="card" style={{display:'flex',gap:12,alignItems:'flex-start',marginBottom:9}}>
+            <div style={{width:34,height:34,background:n.type==='success'?'var(--green-bg)':n.type==='error'?'var(--red-bg)':n.type==='warning'?'var(--yellow-bg)':'var(--blue-bg)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+              <I n={ic[n.type]} s={15} c={cc[n.type]}/>
+            </div>
+            <div style={{flex:1}}>
+              <div style={{fontSize:13,fontWeight:600,marginBottom:2}}>{n.title}</div>
+              <div style={{fontSize:12,color:'var(--text3)',lineHeight:1.6,marginBottom:3}}>{n.body}</div>
+              <div style={{fontSize:11,color:'var(--text4)'}}>{n.time}</div>
+            </div>
+            <button className="btn bg2btn bsm"><I n="x" s={12}/></button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// FEATURES PAGE
+const FeaturesPage=({setPage})=>(
+  <div className="ai">
+    <div style={{padding:'72px 24px 48px',background:'var(--bg)',textAlign:'center',borderBottom:'1px solid var(--border)'}}>
+      <div className="stag">Platform Features</div>
+      <h1 style={{fontSize:'clamp(28px,5vw,50px)',fontFamily:'var(--ffd)',fontWeight:800,marginBottom:13,letterSpacing:'-.02em'}}>Engineered for AI production</h1>
+      <p style={{fontSize:16,color:'var(--text3)',maxWidth:480,margin:'0 auto 30px',lineHeight:1.65}}>Every feature built for enterprise AI pipelines - reliable, scalable, configurable.</p>
+      <button className="btn bbr blg" onClick={()=>setPage('signup')}>Start building free <I n="arrow-right" s={14} c="white"/></button>
+    </div>
+    <div style={{maxWidth:1020,margin:'0 auto',padding:'60px 24px'}}>
+      <div style={{display:'flex',flexDirection:'column',gap:52}}>
+        {[{ico:'globe',t:'Intelligent Crawling',c:'var(--brand)',d:'Distributed crawler for any architecture - static HTML, SPAs, sitemaps.',points:['Sitemap.xml parsing','robots.txt compliance','Rate limiting controls','Multi-domain support']},
+          {ico:'cpu',t:'JavaScript Rendering',c:'var(--blue)',d:'Full headless browser for React, Vue, Angular, and any JS-rendered SPA.',points:['Full Chromium rendering','SPA route discovery','Dynamic content waiting','Session handling']},
+          {ico:'layers',t:'Smart Chunking',c:'var(--green)',d:'Intelligently split content into RAG-optimal chunks.',points:['256-4096 token sizes','Semantic boundary detection','Sliding window overlap','Header-aware splitting']},
+          {ico:'database',t:'Vector DB Delivery',c:'var(--yellow)',d:'Push to all major vector stores with automatic index management.',points:['Pinecone, Qdrant, Weaviate','PGVector, Azure AI Search','Custom REST endpoints','Auto namespace mgmt']},
+        ].map((f,i)=>(
+          <div key={f.t} className='feat-row' style={{direction:i%2===1?'rtl':'ltr'}}>
+            <div style={{direction:'ltr'}}>
+              <div style={{width:40,height:40,background:`${f.c}14`,borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',marginBottom:14}}><I n={f.ico} s={18} c={f.c}/></div>
+              <h2 style={{fontSize:'clamp(18px,2.5vw,24px)',fontFamily:'var(--ffd)',marginBottom:10}}>{f.t}</h2>
+              <p style={{fontSize:14,color:'var(--text3)',lineHeight:1.7,marginBottom:16}}>{f.d}</p>
+              <ul style={{listStyle:'none',display:'flex',flexDirection:'column',gap:7}}>
+                {f.points.map(p=><li key={p} className="fxc" style={{gap:8,fontSize:13,color:'var(--text2)'}}><I n="check" s={13} c="var(--green)"/>{p}</li>)}
+              </ul>
+            </div>
+            <div style={{direction:'ltr',background:'var(--surface)',border:'1px solid var(--border)',borderRadius:'var(--rxl)',padding:24,boxShadow:'var(--sh2)'}}>
+              <div style={{background:`${f.c}08`,border:`1px solid ${f.c}18`,borderRadius:'var(--rlg)',padding:'16px 20px'}}>
+                <div className="fxc" style={{gap:7,marginBottom:12}}><div style={{width:6,height:6,borderRadius:'50%',background:f.c}}/><span style={{fontSize:10,fontWeight:600,color:f.c,textTransform:'uppercase',letterSpacing:'.06em'}}>{f.t}</span></div>
+                {f.points.map((p,pi)=>(
+                  <div key={pi} className="fxc" style={{gap:8,padding:'7px 10px',background:'var(--surface)',borderRadius:'var(--r)',border:'1px solid var(--border)',marginBottom:5}}>
+                    <div style={{width:4,height:4,borderRadius:'50%',background:f.c,flexShrink:0}}/><span style={{fontSize:12,color:'var(--text2)'}}>{p}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <Footer setPage={setPage}/>
+  </div>
+);
+
+// INTEGRATIONS PAGE
+const IntegrationsPage=({setPage})=>(
+  <div className="ai">
+    <div style={{padding:'72px 24px 48px',background:'var(--bg)',textAlign:'center',borderBottom:'1px solid var(--border)'}}>
+      <div className="stag">Integrations</div>
+      <h1 style={{fontSize:'clamp(28px,5vw,46px)',fontFamily:'var(--ffd)',fontWeight:800,marginBottom:13,letterSpacing:'-.02em'}}>Connect to your entire AI stack</h1>
+      <p style={{fontSize:16,color:'var(--text3)',maxWidth:480,margin:'0 auto',lineHeight:1.65}}>DataForge delivers structured data directly to the tools your team already uses.</p>
+    </div>
+    <div style={{maxWidth:1020,margin:'0 auto',padding:'56px 24px'}}>
+      {[{t:'Vector Databases',items:[['Pinecone','#1F6BD5','P','active'],['Qdrant','#DC3545','Q','active'],['Weaviate','#4CAF50','W','active'],['PGVector','#336791','PG','active'],['Milvus','#00B4D8','M','active'],['Azure AI Search','#0078D4','Az','active']]},
+        {t:'AI Platforms',items:[['OpenAI Embeddings','#000','OA','active'],['Cohere Embed','#D4622A','Co','active'],['AWS Bedrock','#FF9900','AW','coming-soon'],['Google Vertex AI','#4285F4','G','coming-soon'],['Custom REST API','#6B7280','API','active']]},
+        {t:'Authentication & SSO',items:[['Okta','#007DC1','Ok','active'],['Azure AD','#0078D4','AD','active'],['Google Workspace','#EA4335','GW','active'],['GitHub OAuth','#333','GH','active']]},
+      ].map(g=>(
+        <div key={g.t} style={{marginBottom:44}}>
+          <h2 style={{fontSize:18,fontFamily:'var(--ffd)',marginBottom:14}}>{g.t}</h2>
+          <div className="g2">
+            {g.items.map(([name,c,l,status])=>(
+              <div key={name} style={{display:'flex',alignItems:'center',gap:12,padding:'13px 16px',background:'var(--surface)',border:'1px solid var(--border)',borderRadius:'var(--rlg)',transition:'box-shadow .14s'}}
+                onMouseEnter={e=>e.currentTarget.style.boxShadow='var(--sh2)'}
+                onMouseLeave={e=>e.currentTarget.style.boxShadow='none'}>
+                <div style={{width:36,height:36,background:`${c}14`,borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:700,color:c,flexShrink:0}}>{l}</div>
+                <div style={{flex:1}}><div style={{fontSize:13,fontWeight:600,marginBottom:1}}>{name}</div></div>
+                {status==='coming-soon'?<span className="badge bggr" style={{fontSize:10}}>Soon</span>:<span className="badge bgg" style={{fontSize:10}}>Live</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    <Footer setPage={setPage}/>
+  </div>
+);
+
+// ENTERPRISE PAGE
+const EnterprisePage=({setPage})=>(
+  <div className="ai">
+    <div style={{padding:'84px 24px 60px',background:'var(--accent)',textAlign:'center',position:'relative',overflow:'hidden'}}>
+      <div style={{position:'absolute',inset:0,backgroundImage:'radial-gradient(circle at 30% 50%,rgba(255,255,255,.03) 0%,transparent 60%)'}}/>
+      <div style={{position:'relative',zIndex:1,maxWidth:620,margin:'0 auto'}}>
+        <div style={{display:'inline-block',padding:'3px 12px',background:'rgba(255,255,255,.09)',borderRadius:100,fontSize:10,fontWeight:600,letterSpacing:'.07em',textTransform:'uppercase',color:'rgba(255,255,255,.6)',marginBottom:16}}>Enterprise</div>
+        <h1 style={{fontSize:'clamp(28px,5vw,50px)',color:'white',fontFamily:'var(--ffd)',fontWeight:800,marginBottom:13,lineHeight:1.1}}>AI data infrastructure at enterprise scale</h1>
+        <p style={{fontSize:16,color:'rgba(255,255,255,.5)',lineHeight:1.65,marginBottom:34}}>Private deployments, custom SLAs, and comprehensive governance.</p>
+        <div className="fxc" style={{justifyContent:'center',gap:11}}>
+          <button className="btn bxl" style={{background:'white',color:'var(--accent)'}} onClick={()=>setPage('contact')}>Contact enterprise</button>
+          <button className="btn bxl" style={{background:'rgba(255,255,255,.09)',color:'white',border:'1px solid rgba(255,255,255,.18)'}} onClick={()=>setPage('contact')}>Talk to sales</button>
+        </div>
+      </div>
+    </div>
+    <div style={{maxWidth:1020,margin:'0 auto',padding:'60px 24px'}}>
+      <div className="g3 mb6">
+        {[['shield','SOC 2 Type II','Annual third-party audits','var(--blue)'],['lock','AES-256 Encryption','At rest and in transit','var(--green)'],['key','SSO & SAML','Okta, Azure AD, Google Workspace','var(--brand)'],['users','Role-Based Access','Granular permission controls','var(--yellow)'],['database','Private Deployment','Your own AWS, Azure, or GCP','var(--blue)'],['activity','Audit Logging','Complete action trail','var(--green)']].map(([ico,t,d,c])=>(
+          <div key={t} className="card">
+            <div style={{width:38,height:38,background:`${c}12`,borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',marginBottom:11}}><I n={ico} s={17} c={c}/></div>
+            <h3 style={{fontSize:14,marginBottom:6}}>{t}</h3>
+            <p style={{fontSize:12,color:'var(--text3)',lineHeight:1.65}}>{d}</p>
+          </div>
+        ))}
+      </div>
+      <div style={{background:'var(--bg2)',border:'1px solid var(--border)',borderRadius:'var(--rxl)',padding:'40px',textAlign:'center'}}>
+        <h2 style={{fontSize:24,fontFamily:'var(--ffd)',marginBottom:10}}>Ready for a custom deployment?</h2>
+        <p style={{fontSize:14,color:'var(--text3)',maxWidth:430,margin:'0 auto 24px',lineHeight:1.65}}>Our team will design the right architecture, SLAs, and integration plan.</p>
+        <div className="fxc" style={{justifyContent:'center',gap:11}}>
+          <button className="btn bp blg" onClick={()=>setPage('contact')}>Contact us</button>
+          <button className="btn bs blg">Download security brief</button>
+        </div>
+      </div>
+    </div>
+    <Footer setPage={setPage}/>
+  </div>
+);
+
+// SIMPLE LEGAL/ABOUT PAGES
+const SimplePage=({title})=>(
+  <div className="ai" style={{maxWidth:680,margin:'0 auto',padding:'64px 24px'}}>
+    <h1 style={{fontSize:'clamp(24px,4vw,36px)',fontFamily:'var(--ffd)',fontWeight:800,marginBottom:14}}>{title}</h1>
+    <p style={{fontSize:14,color:'var(--text3)',lineHeight:1.75,marginBottom:20}}>This page contains important information regarding your use of DataForge AI services.</p>
+    {[1,2,3].map(i=>(
+      <div key={i} style={{marginBottom:22}}>
+        <h2 style={{fontSize:17,fontFamily:'var(--ffd)',marginBottom:8}}>Section {i}</h2>
+        <p style={{fontSize:14,color:'var(--text3)',lineHeight:1.75}}>DataForge AI operates as an enterprise data extraction platform. All users must comply with our acceptable use policy. We reserve the right to update these terms with reasonable notice. Use of the service constitutes acceptance of current terms.</p>
+      </div>
+    ))}
+  </div>
+);
+
+// MAIN APP
+const App=()=>{
+  const [page,setPage]=useState('home');
+  const [loggedIn,setLoggedIn]=useState(false);
+
+  const publicPages=['home','features','integrations','pricing','enterprise','docs','contact','about','terms','privacy','cookies'];
+  const authPages=['login','signup','forgot','reset'];
+  const standalonePages=['checkout'];
+  const appPages=['dashboard','projects','create-project','project-detail','analytics','billing','team','settings','support','notifications'];
+
+  const isPublicPage=publicPages.includes(page)||authPages.includes(page);
+  const isAppPage=appPages.includes(page);
+  const isStandalone=standalonePages.includes(page);
+
+  // Redirect to dashboard if logged in and on auth page
+  const goPage=(p)=>{
+    setPage(p);
+    window.scrollTo(0,0);
+  };
+
+  return(
+    <ToastProvider>
+      {/* STANDALONE */}
+      {isStandalone&&(
+        page==='checkout'&&<Checkout setPage={goPage} setLoggedIn={setLoggedIn}/>
+      )}
+
+      {/* PUBLIC / AUTH LAYOUT */}
+      {!isStandalone&&isPublicPage&&(
+        <div>
+          {!authPages.includes(page)&&<PubNav page={page} setPage={goPage} loggedIn={loggedIn}/>}
+          {page==='home'&&<HomePage setPage={goPage}/>}
+          {page==='features'&&<FeaturesPage setPage={goPage}/>}
+          {page==='integrations'&&<IntegrationsPage setPage={goPage}/>}
+          {page==='pricing'&&<PricingPage setPage={goPage}/>}
+          {page==='enterprise'&&<EnterprisePage setPage={goPage}/>}
+          {page==='docs'&&<div style={{display:'flex',flexDirection:'column',minHeight:'calc(100vh - 60px)'}}><Docs setPage={goPage}/></div>}
+          {page==='contact'&&<ContactPage setPage={goPage}/>}
+          {page==='about'&&(
+            <div style={{maxWidth:680,margin:'0 auto',padding:'72px 24px'}}>
+              <h1 style={{fontSize:32,fontFamily:'var(--ffd)',marginBottom:14}}>About DataForge AI</h1>
+              <p style={{fontSize:15,color:'var(--text3)',lineHeight:1.75}}>DataForge AI was founded in 2024 to solve a critical problem in the AI era: extracting clean, structured data out of websites and into AI pipelines without custom engineering for every project. Our platform handles crawling, cleaning, chunking, and delivering - so AI teams can focus on building remarkable products.</p>
+            </div>
+          )}
+          {page==='terms'&&<SimplePage title="Terms of Service"/>}
+          {page==='privacy'&&<SimplePage title="Privacy Policy"/>}
+          {page==='cookies'&&<SimplePage title="Cookie Policy"/>}
+          {page==='login'&&<AuthPage mode="login" setPage={goPage} setLoggedIn={setLoggedIn}/>}
+          {page==='signup'&&<AuthPage mode="signup" setPage={goPage} setLoggedIn={setLoggedIn}/>}
+          {page==='forgot'&&<AuthPage mode="forgot" setPage={goPage} setLoggedIn={setLoggedIn}/>}
+          {page==='reset'&&<AuthPage mode="reset" setPage={goPage} setLoggedIn={setLoggedIn}/>}
+          {!publicPages.includes(page)&&!authPages.includes(page)&&<HomePage setPage={goPage}/>}
+        </div>
+      )}
+
+      {/* APP LAYOUT */}
+      {!isStandalone&&isAppPage&&!loggedIn&&(
+        <div style={{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',background:'var(--bg)',padding:20}}>
+          <div style={{textAlign:'center',maxWidth:360}}>
+            <div style={{width:56,height:56,background:'rgba(212,98,42,.1)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 18px'}}><I n="lock" s={24} c="var(--brand)"/></div>
+            <h2 style={{fontSize:20,fontFamily:'var(--ffd)',marginBottom:8}}>Sign in required</h2>
+            <p style={{fontSize:13,color:'var(--text3)',marginBottom:20,lineHeight:1.6}}>Please sign in to access the dashboard.</p>
+            <div className="fxc" style={{justifyContent:'center',gap:10}}>
+              <button className="btn bp" onClick={()=>goPage('login')}>Sign in</button>
+              <button className="btn bs" onClick={()=>goPage('signup')}>Create account</button>
+            </div>
+          </div>
+        </div>
+      )}
+      {!isStandalone&&isAppPage&&loggedIn&&(
+        <div className="app">
+          <Sidebar page={page} setPage={goPage} setLoggedIn={setLoggedIn}/>
+          <div className="mc2">
+            {page==='dashboard'&&<Dashboard setPage={goPage}/>}
+            {page==='projects'&&<ProjectsPage setPage={goPage}/>}
+            {page==='create-project'&&<CreateProject setPage={goPage}/>}
+            {page==='project-detail'&&<ProjectDetail setPage={goPage}/>}
+            {page==='analytics'&&<Analytics setPage={goPage}/>}
+            {page==='billing'&&<Billing setPage={goPage}/>}
+            {page==='team'&&<Team setPage={goPage}/>}
+            {page==='settings'&&<Settings setPage={goPage}/>}
+            {page==='support'&&<Support setPage={goPage}/>}
+            {page==='notifications'&&<NotificationsPage setPage={goPage}/>}
+            {page==='docs'&&<div style={{display:'flex',flex:1}}><Docs setPage={goPage}/></div>}
+          </div>
+        </div>
+      )}
+    </ToastProvider>
+  );
+};
+
+const _root=ReactDOM.createRoot(document.getElementById('root'));
+_root.render(<App/>);
+
+</script>
+</body>
+</html>

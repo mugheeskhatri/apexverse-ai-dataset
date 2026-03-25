@@ -1,0 +1,2 @@
+Summary of where everything goes:
+FileGoes inTopBar.tsxfrontend/src/components/layout/APEXCRAWL_INTERFACE.mdSave as reference — give to ApexCrawl devAll route.ts filesfrontend/src/app/api/...All page.tsx filesfrontend/src/app/(app)/...auth.tsxfrontend/src/lib/app/config.py, app/main.py, app/middleware/auth.py, app/routers/billing.pybackend/app/....envbackend/ root
