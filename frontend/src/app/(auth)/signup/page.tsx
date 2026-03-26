@@ -82,7 +82,7 @@ function SignupForm() {
 
         {/* Google OAuth */}
         <a
-          href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8050'}/auth/google`}
+          href={`${process.env.NEXT_PUBLIC_API_URL || 'http://72.61.7.93:8000'}/auth/google`}
           className="btn bs bfw mb4"
           style={{ justifyContent: 'center', height: 42, textDecoration: 'none', display: 'flex', alignItems: 'center' }}
         >

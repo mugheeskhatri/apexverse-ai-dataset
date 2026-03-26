@@ -2,9 +2,10 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://72.61.7.93:8000'
 // All calls go to /api/... (Next.js proxy) — never directly to port 8050
 // This avoids CORS completely — same origin requests don't need CORS headers
-const API = '/api';
+const API = API_URL + '/api';
 
 interface User {
   id: string;

@@ -47,7 +47,7 @@ function CheckoutForm() {
     setError('');
     setLoading(true);
     try {
-      const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8050';
+      const API = process.env.NEXT_PUBLIC_API_URL || 'http://72.61.7.93:8000';
       const res = await fetch(`${API}/billing/create-checkout-session`, {
         method: 'POST',
         headers: {
